@@ -153,6 +153,9 @@ export default function Auth({ signup = false }) {
               lastName,
               userName,
               phoneNumber,
+              state,
+              city,
+              county
             }),
             credentials: "include",
           });
@@ -164,7 +167,7 @@ export default function Auth({ signup = false }) {
             const responseData = await response.text();
             // console.log(responseData)
             setCookie("user", responseData);
-            navigate("/dashboard");
+            navigate("/signup");
           } else {
             const responseData = await response.text();
             setErrorMessage({ ...errorMessage, desc: responseData });

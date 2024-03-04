@@ -43,7 +43,7 @@ export default function Home() {
         const fetchData = async () => {
           setLoading(true);
           try {
-            const response = await axios.get("https://unique-barbers.onrender.com/api/v1/shops/all");
+            const response = await axios.get("https://universoul.onrender.com/api/v1/shops/all");
             if (Array.isArray(response.data.data)) {
               const filteredBarbers = response.data.data.filter(item => item.category === 'barbers');
               setBarbersData(filteredBarbers);

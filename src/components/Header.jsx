@@ -383,7 +383,7 @@ const Header = () => {
                             Login
                           </Link>
                           <Link
-                            to='/dashboard'
+                            to='/signup'
                             className='block w-full rounded-md border border-transparent py-2 px-4 text-center font-medium text-white shadow bg-primaryColor mt-4'>
                             Sign Up
                           </Link>
