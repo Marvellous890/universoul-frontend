@@ -8,7 +8,7 @@ const ProductProvider = ({ children }) => {
   const [productItem, setProductItem] = useState([]);
 
   useEffect(() => {
-    const apiUrl = 'https://unique-barbers.onrender.com/api/v1/shops/all'; // Replace with your API endpoint
+    const apiUrl = 'https://universoul.onrender.com/api/v1/shops/all'; // Replace with your API endpoint
 
     const fetchData = async () => {
       try {
@@ -16,7 +16,7 @@ const ProductProvider = ({ children }) => {
         if (Array.isArray(response.data.shops)) {
           const filteredShops = response.data.shops.filter(shop => shop.category !== 'barbers');
           setProductItem(filteredShops);
-          console.log(filteredShops);
+          
         } else {
           console.error('Data structure is not as expected');
         }
