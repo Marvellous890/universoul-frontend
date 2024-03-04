@@ -26,7 +26,7 @@ import { BarberList, Pricing, SectionHeader, Testimonials } from "../components/
 import Design3 from "../assets/img/razor.gif";
 import Design2 from "../assets/img/shaver.gif";
 import { BallTriangle, Grid } from "react-loader-spinner";
-import Service from "../assets/img/service.jpg";
+import Service from "../assets/img/service.JPG";
 import Card from "../assets/img/card.png";
 import Vid from "../assets/img/video-icon.png";
 import Design4 from "../assets/img/pie-chart.gif";
