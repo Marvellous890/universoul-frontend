@@ -16,7 +16,7 @@ const AccountActivated = () => {
 
     axios
       .get(
-        `https://universoul.onrender.com/api/v1/activate?usertoken=${usertoken}`
+        `https://universoul.onrender.com/api/v1/users/activate?usertoken=${usertoken}`
       )
       .then((response) => {
         setActivationStatus("success");
