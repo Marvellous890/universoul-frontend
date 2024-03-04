@@ -7,24 +7,24 @@ import axios from 'axios';
 const AccountActivated = () => {
   const { width, height } = useWindowSize();
   const [activationStatus, setActivationStatus] = useState('verifying');
-  const [showConfetti, setShowConfetti] = useState(true);
+  // const [showConfetti, setShowConfetti] = useState(true);
  
 
   useEffect(() => {
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const usertoken = urlParams.get('usertoken');
+    const urlParams = new URLSearchParams(window.location.search);
+    const usertoken = urlParams.get('usertoken');
 
-    // axios
-    //   .get(
-    //     `https://universoul.onrender.com/api/v1/activate?usertoken=${usertoken}`
-    //   )
-    //   .then((response) => {
-    //     setActivationStatus("success");
-    //     setShowConfetti(true);
-    //   })
-    //   .catch((error) => {
-    //     setActivationStatus("error");
-    //   });
+    axios
+      .get(
+        `https://universoul.onrender.com/api/v1/activate?usertoken=${usertoken}`
+      )
+      .then((response) => {
+        setActivationStatus("success");
+        setShowConfetti(true);
+      })
+      .catch((error) => {
+        setActivationStatus("error");
+      });
   }, []);
 
   const textColor = activationStatus === 'success' || activationStatus === 'verifying' ? 'text-green-600' : 'text-red-600';
