@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useWindowSize } from "@uidotdev/usehooks";
-import Confetti from "react-confetti";
+// import Confetti from "react-confetti";
 import { Link} from "react-router-dom";
 import axios from 'axios';
 
@@ -13,18 +13,32 @@ const AccountActivated = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const usertoken = urlParams.get('usertoken');
+    // const usertoken = ''
 
-    axios
-      .get(
-        `https://universoul.onrender.com/api/v1/users/activate?usertoken=${usertoken}`
-      )
-      .then((response) => {
-        setActivationStatus("success");
-        setShowConfetti(true);
-      })
-      .catch((error) => {
-        setActivationStatus("error");
-      });
+   const makeRequest = async () => {
+  try {
+   
+
+    const response = await axios.get(`https://universoul.onrender.com/api/v1/users/activate/${usertoken}`);
+
+    if (response.status >= 200 && response.status < 300) {
+      // Show success notification
+       setActivationStatus("success");
+       setShowConfetti(true);
+       console.log("activated");
+    } else {
+      setActivationStatus("error");
+    }
+
+  } catch (error) {
+   
+    console.log("Error activating your account", error);
+  }
+   }
+
+   makeRequest()
+
+  
   }, []);
 
   const textColor = activationStatus === 'success' || activationStatus === 'verifying' ? 'text-green-600' : 'text-red-600';

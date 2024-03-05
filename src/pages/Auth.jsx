@@ -160,14 +160,35 @@ export default function Auth({ signup = false }) {
             credentials: "include",
           });
 
+           console.log(`
+              email = ${email} ,
+              password = ${password},
+              firstName = ${firstName},
+              
+            `);
+
           setLoading(false);
 
           if (response.ok) {
             // successful login
             const responseData = await response.text();
-            // console.log(responseData)
+            setEmail('')
+            setPassword('')
+            setFirstName('')
+            setLastName('')
+            setPhoneNumber('')
+            setState('')
+            setCity('')
+            setCounty('')
+
+            console.log(`
+              email = ${email} ,
+              password = ${password},
+              firstName = ${firstName},
+              
+            `);
             setCookie("user", responseData);
-            navigate("/signup");
+            navigate("/login");
           } else {
             const responseData = await response.text();
             setErrorMessage({ ...errorMessage, desc: responseData });
