@@ -1,24 +1,23 @@
-import axios from 'axios';
-import { useImage } from '../context/ImageContext';
-import { getCookie, setCookie } from '../utils';
+import axios from "axios";
+import { useImage } from "../context/ImageContext";
+import { getCookie, setCookie } from "../utils";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function UpdateImage() {
   const { setImageUrl } = useImage();
-  const cloudName = 'di36rc30e';
-  const uploadPreset = 'mrh3qf9';
+  const cloudName = "di36rc30e";
+  const uploadPreset = "mrh3qf9";
 
-  const token = getCookie('token');
-  const user = JSON.parse(getCookie('user'));
+  const token = getCookie("token");
+  const user = JSON.parse(getCookie("user"));
 
   async function handleFile(e) {
     e.preventDefault();
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', uploadPreset);
-
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
 
     try {
       const response = await axios.post(
@@ -31,30 +30,29 @@ export default function UpdateImage() {
 
       const userId = user._id;
 
-      await axios
-        .put(
-          `https://unique-barbers.onrender.com/api/v1/users/update/${userId}`,
-          { pictureUrl: imageRes },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-          if (response.status >= 200 && response.status < 300) {
-            // Show success notification
-            toast.success("Profile Updated successfully!");
-          } else {
-            // Show error notification
-            toast.error("Failed to submit data. Please try again.");
-          }
+      await axios.put(
+        `https://universoul.onrender.com/api/v1/users/update/${userId}`,
+        { pictureUrl: imageRes },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        // Show success notification
+        toast.success("Profile Updated successfully!");
+      } else {
+        // Show error notification
+        toast.error("Failed to submit data. Please try again.");
+      }
 
-      setCookie('user', JSON.stringify({ ...user, pictureUrl: imageId }));
+      setCookie("user", JSON.stringify({ ...user, pictureUrl: imageId }));
 
       setImageUrl(response.data.secure_url);
     } catch (error) {
-      console.error('Error updating image:', error);
+      console.error("Error updating image:", error);
     }
   }
 

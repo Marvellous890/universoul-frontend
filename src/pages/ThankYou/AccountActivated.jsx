@@ -19,7 +19,7 @@ const AccountActivated = () => {
   try {
    
 
-    const response = await axios.get(`https://universoul.onrender.com/api/v1/users/activate/${usertoken}`);
+    const response = await axios.get(`https://universoul.onrender.com/api/v1/users/activate?usertoken=${usertoken}`);
 
     if (response.status >= 200 && response.status < 300) {
       // Show success notification
@@ -32,7 +32,7 @@ const AccountActivated = () => {
 
   } catch (error) {
    
-    console.log("Error activating your account", error);
+    console.log("Error ", error.message);
   }
    }
 

@@ -1,6 +1,6 @@
 import { BarberCard, Testimonials } from "../components";
 // import { barbers } from "../data";
-import { scrollToTop } from '../ScollToTop.js';
+import { scrollToTop } from "../ScollToTop.js";
 import { BallTriangleAnim } from "./Home";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -8,7 +8,6 @@ import { ImSpinner8 } from "react-icons/im";
 import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const Barbers = () => {
   const [barbersData, setBarbersData] = useState([]);
@@ -18,24 +17,27 @@ const Barbers = () => {
   const [shopResults, setShopResults] = useState([]);
 
   const handleSearch = async () => {
-    if(query === ""){
-      return ;
+    if (query === "") {
+      return;
     } else {
       setSearchLoading(true);
       try {
-        const response = await axios.get('https://unique-barbers.onrender.com/api/v1/shops/search', {
-          params: { query },
-        });
-        
+        const response = await axios.get(
+          "https://universoul.onrender.com/api/v1/shops/search",
+          {
+            params: { query },
+          }
+        );
+
         let newData = response.data.data;
         setSearchLoading(false);
         setShopResults(newData);
-         
-        if(newData.length === 0){
+
+        if (newData.length === 0) {
           toast.error("Keyword not found");
         }
       } catch (error) {
-        console.error('Error fetching shop results:', error);
+        console.error("Error fetching shop results:", error);
       }
     }
   };
@@ -44,9 +46,13 @@ const Barbers = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("https://unique-barbers.onrender.com/api/v1/shops/all");
+        const response = await axios.get(
+          "https://universoul.onrender.com/api/v1/shops/all"
+        );
         if (Array.isArray(response.data.shops)) {
-          const filteredBarbers = response.data.shops.filter(item => item.category === 'barbers');
+          const filteredBarbers = response.data.shops.filter(
+            (item) => item.category === "barbers"
+          );
           setBarbersData(filteredBarbers);
         } else {
           console.error("Data received is not an array:", response.data);
@@ -57,7 +63,6 @@ const Barbers = () => {
         setLoading(false);
       }
     };
-    
 
     fetchData();
     scrollToTop();
@@ -87,18 +92,15 @@ const Barbers = () => {
           <h2 className='heading'>Find A Barber</h2>
           <div className='max-w-[570px] mt-[30px] mx-auto rounded-md flex items-center justify-between'>
             <input
-              onChange={(e)=> setQuery(e.target.value)}
+              onChange={(e) => setQuery(e.target.value)}
               type='search'
               className='py-3 pl-4 pr-2 bg-transparent w-full focus:outline-none cursor-pointer border-3 border-slate-400'
               placeholder='Search for A Barber'
             />
-            <button onClick={handleSearch} className='btn mt-0 rounded-r-md rounded-[0px]  '>
-              {
-                searchLoading === true?
-                <ImSpinner8 />:
-                <span>Search</span>
-              }
-             
+            <button
+              onClick={handleSearch}
+              className='btn mt-0 rounded-r-md rounded-[0px]  '>
+              {searchLoading === true ? <ImSpinner8 /> : <span>Search</span>}
             </button>
           </div>
         </div>
@@ -108,18 +110,13 @@ const Barbers = () => {
         <div className='container'>
           {/* Display filtered barber data */}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-          {
-  shopResults.length !== 0 ?
-    shopResults.map((barber) => (
-      <BarberCard key={barber._id} barber={barber} />
-    )) 
-  :
-    (barbersData?.map((barber) => (
-      <BarberCard key={barber._id} barber={barber} />
-    )))
-}
-
-          
+            {shopResults.length !== 0
+              ? shopResults.map((barber) => (
+                  <BarberCard key={barber._id} barber={barber} />
+                ))
+              : barbersData?.map((barber) => (
+                  <BarberCard key={barber._id} barber={barber} />
+                ))}
           </div>
 
           {/* Loading spinner */}
@@ -134,7 +131,7 @@ const Barbers = () => {
         {/* Render Testimonials component here */}
         <Testimonials />
       </section>
-      <ToastContainer position="top-center" />
+      <ToastContainer position='top-center' />
     </>
   );
 };

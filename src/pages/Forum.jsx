@@ -4,7 +4,6 @@
 // import axios from "axios";
 // import { ToastContainer } from "react-toastify";
 
-
 // const token = getCookie('token');
 
 // const Forum = () => {
@@ -12,11 +11,10 @@
 //   const [threads, setThreads] = useState([
 //   ]);
 
-
 //   const fetchAllChats = async () => {
 //     try {
 //       const response = await axios.get(
-//         'https://unique-barbers.onrender.com/api/v1/threads/getall',
+//         'https://universoul.onrender.com/api/v1/threads/getall',
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
@@ -32,11 +30,11 @@
 //     }
 //   };
 //   console.log('threads: ', threads)
-  
+
 //   useEffect(() => {
-   
+
 //       fetchAllChats();
- 
+
 //     },[])
 
 //   return (
@@ -62,7 +60,7 @@
 //         modalShow &&
 //         <ThreadModal setModalShow={setModalShow} fetchAllChats={fetchAllChats}/>
 //       }
-//     <ToastContainer position='top-center' />    
+//     <ToastContainer position='top-center' />
 //       </>
 //   );
 // };
@@ -74,7 +72,7 @@ import { getCookie } from "../utils";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 
-const token = getCookie('token');
+const token = getCookie("token");
 
 const Forum = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -83,11 +81,11 @@ const Forum = () => {
   const fetchAllChats = async () => {
     try {
       const response = await axios.get(
-        'https://unique-barbers.onrender.com/api/v1/threads/getall',
+        "https://universoul.onrender.com/api/v1/threads/getall",
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
@@ -95,7 +93,7 @@ const Forum = () => {
       setThreads(response.data.chatsWithThreadCount);
       console.log(response.data.chatsWithThreadCount);
     } catch (error) {
-      console.error('Error fetching chats:', error);
+      console.error("Error fetching chats:", error);
     }
   };
 
@@ -105,39 +103,42 @@ const Forum = () => {
 
   return (
     <>
-      <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">Forum</h1>
-        <div className="mb-4">
+      <div className='container mx-auto p-4'>
+        <h1 className='text-3xl font-bold mb-4'>Forum</h1>
+        <div className='mb-4'>
           <button
             onClick={() => setModalShow(true)}
             style={{ backgroundColor: "#977d46" }}
-            className="mt-2 text-white p-2 rounded"
-          >
+            className='mt-2 text-white p-2 rounded'>
             Create Thread
           </button>
         </div>
-        <div className="mb-4">
-                   {threads.map(({ _id,thread, topic, userName, createdAt, image, comments }) => (
-            <Thread
-              key={_id}
-              _id={_id}
-              topic={topic}
-              userName={userName}
-              createdAt={createdAt}
-              image={image}
-              comments={comments}
-              thread={thread}
-            />
-          ))}
+        <div className='mb-4'>
+          {threads.map(
+            ({ _id, thread, topic, userName, createdAt, image, comments }) => (
+              <Thread
+                key={_id}
+                _id={_id}
+                topic={topic}
+                userName={userName}
+                createdAt={createdAt}
+                image={image}
+                comments={comments}
+                thread={thread}
+              />
+            )
+          )}
         </div>
       </div>
       {modalShow && (
-        <ThreadModal setModalShow={setModalShow} fetchAllChats={fetchAllChats} />
+        <ThreadModal
+          setModalShow={setModalShow}
+          fetchAllChats={fetchAllChats}
+        />
       )}
-      <ToastContainer position="top-center" />
+      <ToastContainer position='top-center' />
     </>
   );
 };
 
 export default Forum;
-
