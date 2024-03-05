@@ -57,7 +57,7 @@ const Profile = () => {
       <div className="col-span-1 h-[450px] flex items-center justify-center flex-col ">
         <div className="w-[150px] h-[150px] rounded-full mb-3  ">
           <img
-            src={imageUrl}
+            src={user.pictureUrl}
             alt={`Image${user.firstName} ${user.lastName}`}
             className="block rounded-full  w-full"
           />
