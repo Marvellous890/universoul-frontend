@@ -3,7 +3,7 @@ import axios from 'axios'
  
  export const ConversationContext  = createContext()
 
- export  const ConversationContextProvider = ({children, token}) => {
+ const ConversationContextProvider = ({children, token}) => {
 
    const [userChats, setUserChats] = useState(null)
    const [loading, setLoading] = useState(false)
@@ -25,6 +25,7 @@ import axios from 'axios'
               }
             );
           }
+          console.log(response);
            if (response.status >= 200 && response.status < 300) {
              // Show success notification
              setUserChats(response.data);
@@ -50,3 +51,6 @@ import axios from 'axios'
          {children}
    </ConversationContext.Provider>
  }
+
+
+ export default ConversationContextProvider;
