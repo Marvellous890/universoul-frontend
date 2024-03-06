@@ -1,4 +1,6 @@
-import {  useState } from "react";
+import { useContext } from "react";
+
+import { ConversationContext } from "../context/ConversationContext";
 
 
 import { FaUser } from "react-icons/fa";
@@ -47,9 +49,11 @@ const messages = [
 
 
 
-import { classNames } from "../utils";
 
 export default function () {
+
+  const {userChats, loading,error} = useContext(ConversationContext) 
+  console.log(userChats);
   return (
     <div className='mx-auto max-w-lg py-8 px-6 lg:max-w-4xl xl:max-w-6xl'>
       <h2 className='text-lg font-semibold text-gray-900'>Recent Messages</h2>

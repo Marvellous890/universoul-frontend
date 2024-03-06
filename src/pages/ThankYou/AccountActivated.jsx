@@ -24,7 +24,6 @@ const AccountActivated = () => {
     if (response.status >= 200 && response.status < 300) {
       // Show success notification
        setActivationStatus("success");
-       setShowConfetti(true);
        console.log("activated");
     } else {
       setActivationStatus("error");
