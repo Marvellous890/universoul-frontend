@@ -19,36 +19,30 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
    const [userAuth, setUserAuth] = useState({})
 
 
-     const getUser = async () => {
-       if (token) {
-         try {
-           const response = await axios.get(
-             "https://universoul.onrender.com/api/v1/users/one",
-             {
-               headers: {
-                 Authorization: `Bearer ${token}`,
-                 "Content-Type": "application/json",
-               },
-             }
-           );
-          //  setUserAuth(response.data.user)
-           console.log(response.data.user);
-         } catch (error) {
-           console.log(error);
-         }
-       }
-     };
-  
-   
-
-
-   getUser()
-
-   console.log(userAuth);
-
-   
-
  useEffect(() => {
+
+
+  // get user auth 
+    const getUser = async () => {
+      if (token) {
+        try {
+          const response = await axios.get(
+            "https://universoul.onrender.com/api/v1/users/one",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          //  setUserAuth(response.data.user)
+          console.log(response.data.user);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+  
 
     const getAllChats = async () => {
         if(token){
@@ -97,6 +91,8 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
      
     };
 
+     getUser();
+     console.log(userAuth);
     getAllChats();
  }, [])
    
@@ -104,7 +100,8 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
    return <ConversationContext.Provider value={{
     userChats,
     loading,
-    error
+    error,
+    userAuth
    }}>
          {children}
    </ConversationContext.Provider>
