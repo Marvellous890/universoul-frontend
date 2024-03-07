@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 
 import { ConversationContext } from "../context/ConversationContext";
-import axios from 'axios'
 
 
 import { FaUser } from "react-icons/fa";

@@ -3,49 +3,59 @@ import axios from 'axios';
 import { getCookie } from "../utils";
 
  
+const token = getCookie("token")
  export const ConversationContext  = createContext()
 const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
 
 
- const ConversationContextProvider = ({children}) => {
-    const token = getCookie("token")
+ 
 
-   const [userChats, setUserChats] = useState(null)
+
+ const ConversationContextProvider = ({children}) => {
+
+   const [userChats, setUserChats] = useState([])
    const [loading, setLoading] = useState(false)
    const [error, setError] = useState(null)
-   const [userToken, setUserToken] = useState('')
-  setUserToken(token);
+   const [userAuth, setUserAuth] = useState({})
+
+
+     const getUser = async () => {
+       if (token) {
+         try {
+           const response = await axios.get(
+             "https://universoul.onrender.com/api/v1/users/one",
+             {
+               headers: {
+                 Authorization: `Bearer ${token}`,
+                 "Content-Type": "application/json",
+               },
+             }
+           );
+          //  setUserAuth(response.data.user)
+           console.log(response.data.user);
+         } catch (error) {
+           console.log(error);
+         }
+       }
+     };
+  
    
 
-   useEffect(() => {
-    // fetch single user details 
-    const getUser = async () => {
-      if(userToken){
-        try {
-          const response = await axios.get('', {
-            headers: {
-              Authorization : `Bearer ${userToken}`
-            }
-          })
-         console.log(response.data)
-        } catch (error) {
-          
-        }
-      }
-    }
-   
-    getUser()
-     
-   }, [userToken])
+
+   getUser()
+
+   console.log(userAuth);
+
    
 
  useEffect(() => {
+
     const getAllChats = async () => {
-        if(userToken){
+        if(token){
              try {
                const response = await axios.get(url, {
                  headers: {
-                   Authorization: `Bearer ${userToken} `,
+                   Authorization: `Bearer ${token} `,
                  },
                });
 
@@ -53,25 +63,25 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
               // sorting Logic for messages 
                const recentMessages = [];
 
-               response.data.messages.forEach((conversation) => {
-                 let otherUser;
-                 if (conversation.user_one._id === "65e792500eb95f3c139a0ff4") {
-                   otherUser = conversation.user_two;
-                 } else {
-                   otherUser = conversation.user_one;
-                 }
+              //  response.data.messages.forEach((conversation) => {
+              //    let otherUser;
+              //    if (conversation.user_one._id === "65e792500eb95f3c139a0ff4") {
+              //      otherUser = conversation.user_two;
+              //    } else {
+              //      otherUser = conversation.user_one;
+              //    }
 
-                 const lastMessage =
-                   conversation.messages[conversation.messages.length - 1];
-                 if (lastMessage.sender._id === otherUser._id) {
-                   recentMessages.push({
-                     sender: otherUser,
-                     message: lastMessage.message,
-                   });
-                 }
-               });
+              //    const lastMessage =
+              //      conversation.messages[conversation.messages.length - 1];
+              //    if (lastMessage.sender._id === otherUser._id) {
+              //      recentMessages.push({
+              //        sender: otherUser,
+              //        message: lastMessage.message,
+              //      });
+              //    }
+              //  });
 
-               console.log(recentMessages);
+              //  console.log(recentMessages);
 
 
                setUserChats(response.data.messages);
@@ -88,7 +98,7 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
     };
 
     getAllChats();
- }, [userToken])
+ }, [])
    
 
    return <ConversationContext.Provider value={{
