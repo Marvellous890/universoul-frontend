@@ -42,6 +42,8 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
         }
       }
     };
+
+    getUser();
   
 
     const getAllChats = async () => {
@@ -57,25 +59,25 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
               // sorting Logic for messages 
                const recentMessages = [];
 
-              //  response.data.messages.forEach((conversation) => {
-              //    let otherUser;
-              //    if (conversation.user_one._id === "65e792500eb95f3c139a0ff4") {
-              //      otherUser = conversation.user_two;
-              //    } else {
-              //      otherUser = conversation.user_one;
-              //    }
+               response.data.messages.forEach((conversation) => {
+                 let otherUser;
+                 if (conversation.user_one._id === userAuth._id) {
+                   otherUser = conversation.user_two;
+                 } else {
+                   otherUser = conversation.user_one;
+                 }
 
-              //    const lastMessage =
-              //      conversation.messages[conversation.messages.length - 1];
-              //    if (lastMessage.sender._id === otherUser._id) {
-              //      recentMessages.push({
-              //        sender: otherUser,
-              //        message: lastMessage.message,
-              //      });
-              //    }
-              //  });
+                 const lastMessage =
+                   conversation.messages[conversation.messages.length - 1];
+                 if (lastMessage.sender._id === otherUser._id) {
+                   recentMessages.push({
+                     sender: otherUser,
+                     message: lastMessage.message,
+                   });
+                 }
+               });
 
-              //  console.log(recentMessages);
+               console.log(recentMessages, 'abi this onw no dey inside code ni?');
 
 
                setUserChats(response.data.messages);
@@ -91,7 +93,7 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
      
     };
 
-     getUser();
+     
      console.log(userAuth);
     getAllChats();
  }, [])
