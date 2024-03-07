@@ -13,10 +13,11 @@ import axios from 'axios'
    useEffect(() => {
     const getAllChats = async () => {
       try {
+        console.log(token);
         setLoading(true)
           if (token) {
             const response = await axios.get(
-              `https://universol.onrender.com/api/v1/customerservice/oneUser`,
+              `https://universol.onrender.com/api/v1/customerservice/oneUser` ,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -24,15 +25,15 @@ import axios from 'axios'
                 },
               }
             );
+            console.log(response);
+             if (response.status >= 200 && response.status < 300) {
+               // Show success notification
+               setUserChats(response);
+               console.log("these are the list of messages");
+             } else {
+               setError("Something went wrong");
+             }
           }
-          console.log(response);
-           if (response.status >= 200 && response.status < 300) {
-             // Show success notification
-             setUserChats(response.data);
-             console.log("these are the list of messages");
-           } else {
-             setError("Something went wrong");
-           }
            setLoading(false)
       } catch (error) {
           setError(null)

@@ -10,6 +10,7 @@ import ConversationContextProvider from "./context/ConversationContext";
 import { getCookie } from "./utils";
  const token = getCookie("token");
 
+ console.log(token);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ConversationContextProvider token={token} >
