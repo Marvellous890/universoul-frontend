@@ -56,35 +56,40 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
                });
 
 
-              // sorting Logic for messages 
-               const recentMessages = [];
-
-               response.data.messages.forEach((conversation) => {
-                 let otherUser;
-                 if (conversation.user_one._id === userAuth._id) {
-                   otherUser = conversation.user_two;
-                 } else {
-                   otherUser = conversation.user_one;
-                 }
-
-                 const lastMessage =
-                   conversation.messages[conversation.messages.length - 1];
-                 if (lastMessage.sender._id === otherUser._id) {
-                   recentMessages.push({
-                     sender: otherUser,
-                     message: lastMessage.message,
-                   });
-                 }
-               });
-
-               console.log(recentMessages, 'abi this onw no dey inside code ni?');
-
+             
 
                setUserChats(response.data.messages);
                if (response.status >= 200 && response.status < 300) {
+                 // sorting Logic for messages
+                 const recentMessages = [];
+
+                 response.data.messages.forEach((conversation) => {
+                   let otherUser;
+                   if (conversation.user_one._id === userAuth._id) {
+                     otherUser = conversation.user_two;
+                   } else {
+                     otherUser = conversation.user_one;
+                   }
+
+                   const lastMessage =
+                     conversation.messages[conversation.messages.length - 1];
+                   if (lastMessage.sender._id === otherUser._id) {
+                     recentMessages.push({
+                       sender: otherUser,
+                       message: lastMessage.message,
+                     });
+                   }
+                 });
+
+                 console.log(
+                   recentMessages,
+                   "abi this onw no dey inside code ni?"
+                 );
+
                  // Show success notification
                  console.log("these are the list of messages");
                } else {
+                console.log('something bad really went wrong bro!');
                }
              } catch (error) {
                console.log(error);
