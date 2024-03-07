@@ -44,7 +44,6 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
     
  }, [])
 
-           console.log(userAuth, "checking if the userAuth object is updated");
 
 
 
@@ -53,7 +52,6 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
 
    const getAllChats = async () => {
      if (token && Object.keys(userAuth).length > 0) {
-      console.log(userAuth, 'confirmed to be gotten from api');
        try {
          const response = await axios.get(url, {
            headers: {
@@ -64,7 +62,6 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
          if (response.status >= 200 && response.status < 300) {
            // sorting Logic for messages
            const recentMessages = [];
-           console.log(userAuth, "this is the foolish auth is now in the recentMessages");
 
            response.data.messages.forEach((conversation) => {
              let otherUser;
@@ -76,15 +73,17 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
 
              const lastMessage =
                conversation.messages[conversation.messages.length - 1];
+               console.log(lastMessage, 'result')
              if (lastMessage.sender._id === otherUser._id) {
-               recentMessages.push({
-                 sender: otherUser,
-                 message: lastMessage.message,
-               });
+              console.log('great')
+              //  recentMessages.push({
+              //    sender: otherUser,
+              //    message: lastMessage.message,
+              //  });
              }
            });
 
-           console.log(recentMessages, "new modified array");
+           console.log(recentMessages, "new array");
 
            // Show success notification
            console.log("these are the list of messages");
