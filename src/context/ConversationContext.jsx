@@ -1,7 +1,12 @@
 import { createContext, useState, useEffect } from "react"; 
-import axios from 'axios'
+import axios from 'axios';
+import { getCookie } from "../utils";
+
+const token = getCookie("token");
  
  export const ConversationContext  = createContext()
+const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
+
 
  const ConversationContextProvider = ({children, token}) => {
 
@@ -9,39 +14,30 @@ import axios from 'axios'
    const [loading, setLoading] = useState(false)
    const [error, setError] = useState(null)
 
-
-   useEffect(() => {
+ useEffect(() => {
     const getAllChats = async () => {
-      try {
-        console.log(token);
-        setLoading(true)
-          if (token) {
-            const response = await axios.get(
-              `https://universol.onrender.com/api/v1/customerservice/oneUser` ,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-            console.log(response);
-             if (response.status >= 200 && response.status < 300) {
-               // Show success notification
-               setUserChats(response);
-               console.log("these are the list of messages");
-             } else {
-               setError("Something went wrong");
+        if(token){
+             try {
+               const response = await axios.get(url, {
+                 headers: {
+                   Authorization: `Bearer ${token} `,
+                 },
+               });
+               setUserChats(response.data.messages);
+               if (response.status >= 200 && response.status < 300) {
+                 // Show success notification
+                 console.log("these are the list of messages");
+               } else {
+               }
+             } catch (error) {
+               console.log(error);
              }
-          }
-           setLoading(false)
-      } catch (error) {
-          setError(null)
-          setLoading(false)
-      }
-    }
-    getAllChats()
-   }, [token])
+        }
+     
+    };
+
+    getAllChats();
+ }, [])
    
 
    return <ConversationContext.Provider value={{

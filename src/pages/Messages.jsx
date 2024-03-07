@@ -6,10 +6,7 @@ import axios from 'axios'
 
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { getCookie } from "../utils";
-const token = getCookie("token");
 
-console.log(token);
 
 const messages = [
   {
@@ -57,31 +54,9 @@ const messages = [
 export default function () {
 
   const {userChats, loading,error} = useContext(ConversationContext) 
-  const url =  'https://universoul.onrender.com/api/v1/customerservice/oneUser'
-  // console.log(userChats);
- useEffect(() => {
-    const getAllChats = async () => {
-      try {
-        const response = await axios.get(url ,
-          {
-            headers: {
-              Authorization: `Bearer ${token} `,
-            },
-          }
-        );
-        console.log(response.data.messages);
-        if (response.status >= 200 && response.status < 300) {
-          // Show success notification
-          console.log("these are the list of messages");
-        } else {
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
-    getAllChats();
- }, [token])
+  console.log(userChats);
+
  
   return (
     <div className='mx-auto max-w-lg py-8 px-6 lg:max-w-4xl xl:max-w-6xl'>
