@@ -35,17 +35,17 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
               },
             }
           );
-          //  setUserAuth(response.data.user)
-          console.log(response.data.user);
+           setUserAuth(response.data.user)
+           getAllChats();
+
+          // console.log(response.data.user);
         } catch (error) {
           console.log(error);
         }
       }
     };
 
-    getUser();
   
-
     const getAllChats = async () => {
         if(token){
              try {
@@ -58,7 +58,6 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
 
              
 
-               setUserChats(response.data.messages);
                if (response.status >= 200 && response.status < 300) {
                  // sorting Logic for messages
                  const recentMessages = [];
@@ -74,17 +73,14 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
                    const lastMessage =
                      conversation.messages[conversation.messages.length - 1];
                    if (lastMessage.sender._id === otherUser._id) {
-                     recentMessages.push({
+                     setUserChats([...{
                        sender: otherUser,
                        message: lastMessage.message,
-                     });
+                     }]);
                    }
                  });
 
-                 console.log(
-                   recentMessages,
-                   "abi this onw no dey inside code ni?"
-                 );
+               
 
                  // Show success notification
                  console.log("these are the list of messages");
@@ -98,9 +94,8 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
      
     };
 
-     
-     console.log(userAuth);
-    getAllChats();
+
+    getUser();   
  }, [])
    
 
