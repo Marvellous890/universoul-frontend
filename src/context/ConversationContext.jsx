@@ -36,6 +36,7 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
             }
           );
            setUserAuth(response.data.user)
+           console.log(userAuth, 'from the main fn')
            getAllChats();
 
           // console.log(response.data.user);
@@ -55,12 +56,10 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
                  },
                });
 
-
-             
-
                if (response.status >= 200 && response.status < 300) {
                  // sorting Logic for messages
                  const recentMessages = [];
+                 console.log(userAuth, 'this is the foolish auth')
 
                  response.data.messages.forEach((conversation) => {
                    let otherUser;
@@ -73,7 +72,7 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
                    const lastMessage =
                      conversation.messages[conversation.messages.length - 1];
                    if (lastMessage.sender._id === otherUser._id) {
-                     setUserChats([...{
+                     recentMessages.push([... {
                        sender: otherUser,
                        message: lastMessage.message,
                      }]);
