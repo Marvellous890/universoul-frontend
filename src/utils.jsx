@@ -106,3 +106,21 @@ export function formatDate(date) {
     const dateObj = new Date(date);
     return dateObj.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+
+export const formatData = (data, modifiedArray, authId) => {
+
+   if (data.user_one._id === authId) {
+     // User one's ID matches your user ID
+     modifiedArray = data.messages.map((messageObj) => ({
+       message: messageObj.message,
+       tag: messageObj.sender._id === authId ? "sender" : "recipient",
+     }));
+   } else {
+     // User two's ID matches your user ID
+     modifiedArray = data.messages.map((messageObj) => ({
+       message: messageObj.message,
+       tag: messageObj.sender._id === authId ? "recipient" : "sender",
+     }));
+   }
+ }

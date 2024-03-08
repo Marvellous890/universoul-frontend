@@ -8,9 +8,9 @@ const MessageDetails = () => {
     const { getSingleMessage, singleMessage } = useContext(ConversationContext);
     const { id } = useParams();
 
+      getSingleMessage(id); 
+   
     
-    getSingleMessage(id); 
-    console.log(singleMessage, 'message  i got');
    
 
   return (

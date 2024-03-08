@@ -1,22 +1,20 @@
-import { createContext, useState, useEffect, useCallback } from "react"; 
-import axios from 'axios';
+import { createContext, useState, useEffect, useCallback } from "react";
+import axios from "axios";
 import { getCookie } from "../utils";
- 
-const token = getCookie("token")
- export const ConversationContext  = createContext()
+
+const token = getCookie("token");
+export const ConversationContext = createContext();
 const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
 
- const ConversationContextProvider = ({children}) => {
+const ConversationContextProvider = ({ children }) => {
+  const [userChats, setUserChats] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [userAuth, setUserAuth] = useState({});
+  const [singleMessage, setSingleMessage] = useState([]);
 
-   const [userChats, setUserChats] = useState([])
-   const [loading, setLoading] = useState(false)
-   const [error, setError] = useState(null)
-   const [userAuth, setUserAuth] = useState({})
-   const [singleMessage, setSingleMessage] = useState([])
-
-
- useEffect(() => {
-  // get user auth 
+  useEffect(() => {
+    // get user auth
     const getUser = async () => {
       if (token) {
         try {
@@ -29,147 +27,152 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
               },
             }
           );
-           setUserAuth(response.data.user)
+          setUserAuth(response.data.user);
           // console.log(response.data.user);
         } catch (error) {
           console.log(error);
         }
       }
     };
-    getUser(); 
-    
- }, [])
+    getUser();
+  }, []);
 
-//  effect to get all chats 
- useEffect(() => {
+  //  effect to get all chats
+  useEffect(() => {
+    const getAllChats = async () => {
+      if (token && Object.keys(userAuth).length > 0) {
+        try {
+          const response = await axios.get(url, {
+            headers: {
+              Authorization: `Bearer ${token} `,
+            },
+          });
+          if (response.status >= 200 && response.status < 300) {
+            // sorting Logic for messages
+            const recentMessages = [];
 
-   const getAllChats = async () => {
-     if (token && Object.keys(userAuth).length > 0) {
-       try {
-         const response = await axios.get(url, {
-           headers: {
-             Authorization: `Bearer ${token} `,
-           },
-         });
-         if (response.status >= 200 && response.status < 300) {
-           // sorting Logic for messages
-           const recentMessages = [];
+            response.data.messages.forEach((conversation) => {
+              let otherUser;
+              if (conversation.user_one._id === userAuth._id) {
+                otherUser = conversation.user_two;
+              } else {
+                otherUser = conversation.user_one;
+              }
 
-           response.data.messages.forEach((conversation) => {
-             let otherUser;
-             if (conversation.user_one._id === userAuth._id) {
-               otherUser = conversation.user_two;
-             } else {
-               otherUser = conversation.user_one;
-             }
-
-             const messages = conversation.messages.reverse();
-             for(let i = 0; i < messages.length; i++){
-              const message = messages[i];
-              if(message.sender._id !== userAuth._id){
-                recentMessages.push(
-                  {
+              const messages = conversation.messages.reverse();
+              for (let i = 0; i < messages.length; i++) {
+                const message = messages[i];
+                if (message.sender._id !== userAuth._id) {
+                  recentMessages.push({
                     sender: otherUser,
                     message: message.message,
-                    createdAt: message.createdAt
-                  }
-                );
-                break;
+                    createdAt: message.createdAt,
+                  });
+                  break;
+                }
               }
-             }
-           });
+            });
 
-         setUserChats(recentMessages);
+            setUserChats(recentMessages);
 
-
-           // Show success notification
-           console.log("these are the list of messages");
-         } else {
-           console.log("something bad really went wrong bro!");
-         }
-       } catch (error) {
-         console.log(error);
-       }
-     }
-   };
-
-   getAllChats()
- }, [userAuth])
-
-//  function to fetch single message 
-const getSingleMessage = useCallback( async (messageId) => {  
-  console.log(messageId);  
-   if(token && Object.keys(userAuth).length > 0 ){
-      try {
-       const response = await axios.get(`https://universoul.onrender.com/api/v1/customerservice/getMessages/${messageId}`, {
-         headers: {
-           Authorization: `Bearer ${token} `,
-         },
-       });     
-        setSingleMessage(response.data.messages);
-        console.log(singleMessage, 'from context');
-       } catch (error) {
-    console.log(error)
-  }
-   }},[])
-
-
-// function to post message 
-const postSingleMessage = useCallback( async (messageId) => {
-  if(token && Object.keys(userAuth).length > 0){
-    try {
-      const response = await axios.post(`https://universoul.onrender.com/api/v1/customerservice/postMessages/${messageId} ` , {
-        headers: {
-          Authorization: `Bearer ${token}`,
+            // Show success notification
+            console.log("these are the list of messages");
+          } else {
+            console.log("something bad really went wrong bro!");
+          }
+        } catch (error) {
+          console.log(error);
         }
-         
-      })
-      if(response.ok){
-        formatData(response.data.messages);
-      }else{
-        console.log(response.error)
       }
-    } catch (error) {
+    };
+
+    getAllChats();
+  }, [userAuth]);
+
+  //  function to fetch single message
+  const getSingleMessage = useCallback(async (messageId) => {
+    if (token && Object.keys(userAuth).length > 0) {
       
+      try {
+        const response = await axios.get(
+          `https://universoul.onrender.com/api/v1/customerservice/getMessages/${messageId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token} `,
+            },
+          }
+        );
+        console.log(response.data.messages)
+           console.log(userAuth._id)
+        console.log(formatData(response.data.messages));
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-}, [])
+  }, []);
 
+  // function to post message
+  const postSingleMessage = useCallback(async (messageId) => {
+    if (token && Object.keys(userAuth).length > 0) {
+      try {
+        const response = await axios.post(
+          `https://universoul.onrender.com/api/v1/customerservice/postMessages/${messageId} `,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          formatData(response.data.messages);
+        } else {
+          console.log(response.error);
+        }
+      } catch (error) {}
+    }
+  }, []);
 
-const formatData = (data) => {
-  
-let chatMessages = [];
+  const formatData = (data) => {
 
-if (data.user_one._id === userAuth._id) {
-  // User one's ID matches your user ID
-  chatMessages = data.messages.map((messageObj) => ({
-    message: messageObj.message,
-    tag: messageObj.sender._id === userAuth._id ? "sender" : "recipient",
-  }));
-} else {
-  // User two's ID matches your user ID
-  chatMessages = data.messages.map((messageObj) => ({
-    message: messageObj.message,
-    tag: messageObj.sender._id === userAuth._id ? "recipient" : "sender",
-  }));
-}
-setSingleMessage(chatMessages)
-}
- 
-   
+   let  modifiedArray = []
+   console.log('stupid data', data);
+   console.log(userAuth._id);
 
-   return <ConversationContext.Provider value={{
-    userChats,
-    loading,
-    error,
-    userAuth,
-    getSingleMessage,
-    postSingleMessage,
-    singleMessage,
-   }}>
-         {children}
-   </ConversationContext.Provider>
- }
+    if (data.user_one._id === userAuth._id) {
+      
+      // User one's ID matches your user ID
+      //   modifiedArray = data.messages.map((messageObj) => ({
+      //   message: messageObj.message,
+      //   tag: messageObj.sender._id === userAuth._id ? "sender" : "recipient",
+      //   time: messageObj.createdAt
+      // }));
+      console.log(true)
+    } else {
+      // User two's ID matches your user ID
+      // modifiedArray = data.messages.map((messageObj) => ({
+      //   message: messageObj.message,
+      //   tag: messageObj.sender._id === userAuth._id ? "recipient" : "sender",
+      //   time: messageObj.createdAt
+      // }));
+      console.log(false);
+    }
 
+  };
 
- export default ConversationContextProvider;
+  return (
+    <ConversationContext.Provider
+      value={{
+        userChats,
+        loading,
+        error,
+        userAuth,
+        getSingleMessage,
+        postSingleMessage,
+        singleMessage,
+      }}>
+      {children}
+    </ConversationContext.Provider>
+  );
+};
+
+export default ConversationContextProvider;
