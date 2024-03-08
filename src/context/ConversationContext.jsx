@@ -107,6 +107,7 @@ const getSingleMessage = useCallback( async (messageId) => {
        });     
       if (response.ok) {
         formatData(response.data.messages);
+        console.log(singleMessage, 'from context');
       }else{
          console.log(response.error)
       }

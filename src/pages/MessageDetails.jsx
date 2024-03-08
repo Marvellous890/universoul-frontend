@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import { FiChevronLeft, FiSend } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -6,14 +6,14 @@ import { ConversationContext } from "../context/ConversationContext";
 
 const MessageDetails = () => {
     const { getSingleMessage, singleMessage } = useContext(ConversationContext);
-    useEffect(() => {
-       const { id } = useParams();
-       getSingleMessage(id);
-       console.log(singleMessage);
-      
-    }, [singleMessage])
-    
+    const { id } = useParams();
 
+    getSingleMessage(id);
+
+    
+      
+      
+      console.log(singleMessage);
    
 
   return (
