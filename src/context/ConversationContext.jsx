@@ -58,7 +58,6 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
              Authorization: `Bearer ${token} `,
            },
          });
-         setUserChats(response.data.messages);
          if (response.status >= 200 && response.status < 300) {
            // sorting Logic for messages
            const recentMessages = [];
@@ -71,19 +70,23 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
                otherUser = conversation.user_one;
              }
 
-             const lastMessage =
-               conversation.messages[conversation.messages.length - 1];
-               console.log(lastMessage, 'result')
-             if (lastMessage.sender._id === otherUser._id) {
-              console.log('great')
-              //  recentMessages.push({
-              //    sender: otherUser,
-              //    message: lastMessage.message,
-              //  });
+             const messages = conversation.messages.reverse();
+             for(let i = 0; i < messages.length; i++){
+              const message = messages[i];
+              if(message.sender._id !== userAuth._id){
+                recentMessages.push(
+                  {
+                    sender: otherUser,
+                    message: message.message
+                  }
+                );
+                break;
+              }
              }
            });
 
-           console.log(recentMessages, "new array");
+         setUserChats(recentMessages);
+
 
            // Show success notification
            console.log("these are the list of messages");
