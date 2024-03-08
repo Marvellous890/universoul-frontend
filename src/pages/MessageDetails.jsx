@@ -9,11 +9,8 @@ const MessageDetails = () => {
     const { id } = useParams();
 
     
-    useEffect(() => {
-      getSingleMessage(id);
-      
-    }, [])
-      console.log(singleMessage);
+    getSingleMessage(id); 
+    console.log(singleMessage, 'message  i got');
    
 
   return (

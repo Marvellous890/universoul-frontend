@@ -97,7 +97,8 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
  }, [userAuth])
 
 //  function to fetch single message 
-const getSingleMessage = useCallback( async (messageId) => {    
+const getSingleMessage = useCallback( async (messageId) => {  
+  console.log(messageId);  
    if(token && Object.keys(userAuth).length > 0 ){
       try {
        const response = await axios.get(`https://universoul.onrender.com/api/v1/customerservice/getMessages/${messageId}`, {
@@ -105,13 +106,9 @@ const getSingleMessage = useCallback( async (messageId) => {
            Authorization: `Bearer ${token} `,
          },
        });     
-      if (response.ok) {
-        formatData(response.data.messages);
+        setSingleMessage(response.data.messages);
         console.log(singleMessage, 'from context');
-      }else{
-         console.log(response.error)
-      }
-  } catch (error) {
+       } catch (error) {
     console.log(error)
   }
    }},[])
