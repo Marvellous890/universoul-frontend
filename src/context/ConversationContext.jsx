@@ -1,15 +1,10 @@
-import { createContext, useState, useEffect } from "react"; 
+import { createContext, useState, useEffect, useCallback } from "react"; 
 import axios from 'axios';
 import { getCookie } from "../utils";
-
  
 const token = getCookie("token")
  export const ConversationContext  = createContext()
 const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
-
-
- 
-
 
  const ConversationContextProvider = ({children}) => {
 
@@ -44,9 +39,6 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
     getUser(); 
     
  }, [])
-
-
-
 
 //  effect to get all chats 
  useEffect(() => {
@@ -105,28 +97,27 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
  }, [userAuth])
 
 //  function to fetch single message 
-const getSingleMessage = async ( messageId ) => {
+const getSingleMessage = useCallback( async (messageId) => {    
    if(token && Object.keys(userAuth).length > 0 ){
-
-  console.log(token)
-
       try {
        const response = await axios.get(`https://universoul.onrender.com/api/v1/customerservice/getMessages/${messageId}`, {
          headers: {
            Authorization: `Bearer ${token} `,
          },
-       });
-
-       console.log(response.data)
-
+       });     
+      if (response.ok) {
+        formatData(response.data.messages);
+      }else{
+         console.log(response.error)
+      }
   } catch (error) {
     console.log(error)
   }
-   }
-}
+   }},[])
+
 
 // function to post message 
-const postSingleMessage = async (messageId) => {
+const postSingleMessage = useCallback( async (messageId) => {
   if(token && Object.keys(userAuth).length > 0){
     try {
       const response = await axios.post(`https://universoul.onrender.com/api/v1/customerservice/postMessages/${messageId} ` , {
@@ -135,13 +126,17 @@ const postSingleMessage = async (messageId) => {
         }
          
       })
-      console.log(response.data.messages);
-      formatData(response.data.messages)
+      if(response.ok){
+        formatData(response.data.messages);
+      }else{
+        console.log(response.error)
+      }
     } catch (error) {
       
     }
   }
-}
+}, [])
+
 
 const formatData = (data) => {
   
@@ -151,18 +146,16 @@ if (data.user_one._id === userAuth._id) {
   // User one's ID matches your user ID
   chatMessages = data.messages.map((messageObj) => ({
     message: messageObj.message,
-    tag: messageObj.sender._id === userId ? "sender" : "recipient",
+    tag: messageObj.sender._id === userAuth._id ? "sender" : "recipient",
   }));
 } else {
   // User two's ID matches your user ID
   chatMessages = data.messages.map((messageObj) => ({
     message: messageObj.message,
-    tag: messageObj.sender._id === userId ? "recipient" : "sender",
+    tag: messageObj.sender._id === userAuth._id ? "recipient" : "sender",
   }));
 }
-console.log(chatMessages)
 setSingleMessage(chatMessages)
-console.log(singleMessage, 'array from context');
 }
  
    

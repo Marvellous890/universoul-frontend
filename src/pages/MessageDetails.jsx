@@ -6,9 +6,15 @@ import { ConversationContext } from "../context/ConversationContext";
 
 const MessageDetails = () => {
     const { getSingleMessage, singleMessage } = useContext(ConversationContext);
-    const {id} = useParams()
-    getSingleMessage(id)
-    console.log(singleMessage)
+    useEffect(() => {
+       const { id } = useParams();
+       getSingleMessage(id);
+       console.log(singleMessage);
+      
+    }, [singleMessage])
+    
+
+   
 
   return (
     <div className='lg:max-w-4xl xl:max-w-6xl w-full h-screen flex flex-col relative'>
