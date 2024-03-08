@@ -8,11 +8,11 @@ const MessageDetails = () => {
     const { getSingleMessage, singleMessage } = useContext(ConversationContext);
     const { id } = useParams();
 
-    getSingleMessage(id);
-
     
+    useEffect(() => {
+      getSingleMessage(id);
       
-      
+    }, [])
       console.log(singleMessage);
    
 
