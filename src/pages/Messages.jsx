@@ -18,15 +18,16 @@ export default function MessageComponent() {
       <h2 className="text-lg font-semibold text-gray-900">Recent Messages</h2>
       <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
         {userChats.length === 0 ? (
-          <div className="flex items-center justify-center h-64 w-64">
-            <img
-              src="/no-conversation.svg"
-              alt="No Conversation"
-              className="h-48 w-auto"
+          <div className='flex flex-col items-center justify-start h-screen p-8'>
+                        <img
+              src={img}
+              alt='Placeholder'
+              className=' w-[35%] object-cover'
             />
-            <p className="mt-4 text-gray-600 text-lg">
-              You have no conversations yet.
+            <p className='mt-4 text-center text-gray-700'>
+             No Conversation yet! Message a barber to get started...
             </p>
+           
           </div>
         ) : (
           <ol className="mt-4 divide-y divide-gray-100 text-sm leading-6 col-span-10 lg:col-span-10 xl:col-span-8">
@@ -35,17 +36,11 @@ export default function MessageComponent() {
                 <li className="relative flex border-b space-x-6 py-6 xl:static cursor-pointer">
                   <div className="flex-none relative w-16 h-16">
                     {sender.pictureUrl ? (
-                     <div className='flex flex-col items-center justify-start h-screen p-8'>
-          <img
-              src={img}
-              alt='Placeholder'
-              className=' w-[45%] object-cover'
-            />
-            <p className='mt-4 text-center text-gray-700'>
-             No Conversation yet! Message a barber to get started...
-            </p>
-           
-          </div>
+                      <img
+                        src={sender.pictureUrl}
+                        alt=""
+                        className="h-full w-full object-cover rounded-full"
+                      />
                     ) : (
                       <div className="h-full w-full flex-none rounded-full bg-slate-500 items-center justify-center flex">
                         <FaUser className="text-white w-6 h-6" />
@@ -82,6 +77,8 @@ export default function MessageComponent() {
     </div>
   );
 }
+
+
 
 
 

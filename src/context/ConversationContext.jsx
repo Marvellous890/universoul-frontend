@@ -17,6 +17,7 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
    const [loading, setLoading] = useState(false)
    const [error, setError] = useState(null)
    const [userAuth, setUserAuth] = useState({})
+   const [singleMessage, setSingleMessage] = useState([])
 
 
  useEffect(() => {
@@ -102,6 +103,67 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
 
    getAllChats()
  }, [userAuth])
+
+//  function to fetch single message 
+const getSingleMessage = async ( messageId ) => {
+   if(token && Object.keys(userAuth).length > 0 ){
+
+  console.log(token)
+
+      try {
+       const response = await axios.get(`https://universoul.onrender.com/api/v1/customerservice/getMessages/${messageId}`, {
+         headers: {
+           Authorization: `Bearer ${token} `,
+         },
+       });
+
+       console.log(response.data)
+
+  } catch (error) {
+    console.log(error)
+  }
+   }
+}
+
+// function to post message 
+const postSingleMessage = async (messageId) => {
+  if(token && Object.keys(userAuth).length > 0){
+    try {
+      const response = await axios.post(`https://universoul.onrender.com/api/v1/customerservice/postMessages/${messageId} ` , {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+         
+      })
+      console.log(response.data.messages);
+      formatData(response.data.messages)
+    } catch (error) {
+      
+    }
+  }
+}
+
+const formatData = (data) => {
+  
+let chatMessages = [];
+
+if (data.user_one._id === userAuth._id) {
+  // User one's ID matches your user ID
+  chatMessages = data.messages.map((messageObj) => ({
+    message: messageObj.message,
+    tag: messageObj.sender._id === userId ? "sender" : "recipient",
+  }));
+} else {
+  // User two's ID matches your user ID
+  chatMessages = data.messages.map((messageObj) => ({
+    message: messageObj.message,
+    tag: messageObj.sender._id === userId ? "recipient" : "sender",
+  }));
+}
+console.log(chatMessages)
+setSingleMessage(chatMessages)
+console.log(singleMessage, 'array from context');
+}
  
    
 
@@ -109,7 +171,10 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
     userChats,
     loading,
     error,
-    userAuth
+    userAuth,
+    getSingleMessage,
+    postSingleMessage,
+    singleMessage,
    }}>
          {children}
    </ConversationContext.Provider>
