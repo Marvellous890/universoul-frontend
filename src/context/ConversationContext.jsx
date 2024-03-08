@@ -77,7 +77,8 @@ const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
                 recentMessages.push(
                   {
                     sender: otherUser,
-                    message: message.message
+                    message: message.message,
+                    createdAt: message.createdAt
                   }
                 );
                 break;
