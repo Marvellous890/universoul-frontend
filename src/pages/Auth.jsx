@@ -63,6 +63,8 @@ export default function Auth({ signup = false }) {
     });
   };
 
+          console.log(city, county, state, userRole);
+
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
@@ -130,7 +132,7 @@ export default function Auth({ signup = false }) {
         !lastName ||
         !userName ||
         !phoneNumber ||
-        !type ||
+        !type === null ||
         !state ||
         !county
       ) {
@@ -161,7 +163,7 @@ export default function Auth({ signup = false }) {
               state,
               city,
               county,
-              type
+              userRole
             }),
             credentials: "include",
           });
@@ -353,8 +355,7 @@ export default function Auth({ signup = false }) {
                       type === true && "border border-black"
                     }`}
                     onClick={() => handleOptionChange(true)}
-                    data-aos='fade-right'
-                    data-aos-duration='1200'>
+                 >
                     <UserIcon className='w-8 h-8 mb-4 text-black' />
                     <p className='text-grey text-sm'>Individual</p>
                   </div>
@@ -363,8 +364,7 @@ export default function Auth({ signup = false }) {
                       type === false && "border border-black"
                     }`}
                     onClick={() => handleOptionChange(false)}
-                    data-aos='fade-left'
-                    data-aos-duration='1500'>
+                    >
                     <UserGroupIcon className='w-8 h-8 mb-4 text-black' />
                     <p className='text-grey text-sm'>Entity (2+) </p>
                   </div>
@@ -378,6 +378,7 @@ export default function Auth({ signup = false }) {
               </div>
             </>
           )}
+
 
           <button
             type='submit'
