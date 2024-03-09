@@ -92,7 +92,7 @@ const ConversationContextProvider = ({ children }) => {
 
 
   //  function to fetch single message
-  const getSingleMessage = useCallback( async (messageId) => {
+  const getSingleMessage =  async (messageId) => {
     if (token && Object.keys(userAuth).length > 0) {
       
       try {
@@ -126,14 +126,14 @@ const ConversationContextProvider = ({ children }) => {
              }));
           }
          console.log('newdata', newData)
-          // setSingleMessage(newData)
+          setSingleMessage(newData)
           console.log(singleMessage,'data')
        
       } catch (error) {
         console.log(error);
       }
     }
-  }, []);
+  }
 
   // function to post message
   const postSingleMessage = useCallback(async (messageId) => {
