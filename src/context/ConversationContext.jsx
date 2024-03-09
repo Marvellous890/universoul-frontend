@@ -133,7 +133,6 @@ const ConversationContextProvider = ({ children }) => {
 
         if (!singleMessage.length || JSON.stringify(singleMessage) !== JSON.stringify(newData)) {
           setSingleMessage(newData)
-          console.log(singleMessage, 'Just this one')
         }
       } catch (error) {
         console.log(error);
@@ -142,50 +141,50 @@ const ConversationContextProvider = ({ children }) => {
   }, [token, userAuth]);
 
   // function to post message
-  const postSingleMessage = useCallback(async (messageId) => {
+  const postSingleMessage = useCallback(async (recipientId) => {
     if (token && Object.keys(userAuth).length > 0) {
       try {
         const response = await axios.post(
-          `https://universoul.onrender.com/api/v1/customerservice/postMessages/${messageId} `,
+          `https://universoul.onrender.com/api/v1/customerservice/postMessages/${recipientId} `,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        if (response.ok) {
-          formatData(response.data.messages);
+        const data = response.data.messages;
+        let newData = [];
+
+        if (data.user_one._id === userAuth._id) {
+          // User one's ID matches your user ID
+          newData = data.messages.map((messageObj) => ({
+            message: messageObj.message,
+            tag:
+              messageObj.sender._id === userAuth._id ? "sender" : "recipient",
+            time: messageObj.createdAt,
+          }));
         } else {
-          console.log(response.error);
+          newData = data.messages.map((messageObj) => ({
+            message: messageObj.message,
+            tag:
+              messageObj.sender._id === userAuth._id ? "recipient" : "sender",
+            time: messageObj.createdAt,
+          }));
         }
-      } catch (error) {}
+
+        if (
+          !singleMessage.length ||
+          JSON.stringify(singleMessage) !== JSON.stringify(newData)
+        ) {
+          setSingleMessage(newData);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, []);
+  }, [token, userAuth]);
 
-  const formatData = (data) => {
-
-   let  modifiedArray = []
-
-    if (data.user_one._id === userAuth._id) {
-      // User one's ID matches your user ID
-        modifiedArray = data.messages.map((messageObj) => ({
-        message: messageObj.message,
-        tag: messageObj.sender._id === userAuth._id ? "sender" : "recipient",
-        time: messageObj.createdAt
-      }));
-      console.log(modifiedArray, 'from the format');
-     
-    } else {
-      // User two's ID matches your user ID
-      modifiedArray = data.messages.map((messageObj) => ({
-        message: messageObj.message,
-        tag: messageObj.sender._id === userAuth._id ? "recipient" : "sender",
-        time: messageObj.createdAt
-      }));
-    
-    }
-
-  };
+ 
 
   return (
     <ConversationContext.Provider

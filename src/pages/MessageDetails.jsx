@@ -1,12 +1,25 @@
 import React, {useContext, useEffect} from "react";
 import { FiChevronLeft, FiSend } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { ConversationContext } from "../context/ConversationContext";
+
 
 const MessageDetails = () => {
     const { getSingleMessage, singleMessage, clearMessage } = useContext(ConversationContext);
     const { id } = useParams();
+    const history = userHistory
+
+    useEffect(() => {
+      const unlisten = history.listen(() => {
+        clearMessage()
+      })
+    
+      return () => {
+        unlisten()
+      }
+    }, [history, clearMessage])
+    
 
     useEffect(() => {
       getSingleMessage(id)
@@ -17,7 +30,7 @@ const MessageDetails = () => {
   return ( 
   <div className='lg:max-w-4xl xl:max-w-6xl w-full h-screen flex flex-col relative'>
        {/* Header */}
-      <Link to={"/messages"} onclick={() => clearMessage()} >
+      <Link to={"/messages"} >
         <div className='bg-gray-200 flex items-center p-4'>
           <FiChevronLeft className='text-gray-600 mr-2' />
           <span className='text-gray-600'>Back to Messages</span>
@@ -30,12 +43,12 @@ const MessageDetails = () => {
           singleMessage.map((msg, i) => {
             const {message, tag, time} = msg
             return (
-              <>
+              <div  key={i}>
                 <div
                   className={`flex ${
-                    tag === "sender" ? "justify-end" : "justify-start"
+                    tag === "sender" ? "justify-start" : "justify-end"
                   }  mb-4`}
-                  key={i}>
+                  >
                   <div
                     className={`${
                       tag === "sender"
@@ -60,7 +73,7 @@ const MessageDetails = () => {
                     </p>
                   </div>
                 </div>
-              </>
+              </div>
             );
           })
         }
