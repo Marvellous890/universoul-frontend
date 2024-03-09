@@ -42,6 +42,8 @@ export default function Auth({ signup = false }) {
 
   const navigate = useNavigate();
 
+  const userRole = type === true ? 'USER' : 'Entity'
+
   useEffect(() => {
     if (errorMessage.desc) {
       setTimeout(() => {
@@ -127,7 +129,10 @@ export default function Auth({ signup = false }) {
         !firstName ||
         !lastName ||
         !userName ||
-        !phoneNumber
+        !phoneNumber ||
+        !type ||
+        !state ||
+        !county
       ) {
         setErrorMessage({ ...errorMessage, desc: "Please fill in all fields" });
       } else if (password.length < 6) {
@@ -155,17 +160,13 @@ export default function Auth({ signup = false }) {
               phoneNumber,
               state,
               city,
-              county
+              county,
+              type
             }),
             credentials: "include",
           });
 
-           console.log(`
-              email = ${email} ,
-              password = ${password},
-              firstName = ${firstName},
-              
-            `);
+          
 
           setLoading(false);
 
@@ -181,14 +182,9 @@ export default function Auth({ signup = false }) {
             setCity('')
             setCounty('')
 
-            console.log(`
-              email = ${email} ,
-              password = ${password},
-              firstName = ${firstName},
-              
-            `);
+           
             setCookie("user", responseData);
-            navigate("/login");
+            navigate("/success-submit");
           } else {
             const responseData = await response.text();
             setErrorMessage({ ...errorMessage, desc: responseData });
@@ -378,7 +374,7 @@ export default function Auth({ signup = false }) {
                 className='flex w-full'
                 data-aos='fade-up'
                 data-aos-duration='1200'>
-                <CheckBox />
+                <CheckBox  />
               </div>
             </>
           )}

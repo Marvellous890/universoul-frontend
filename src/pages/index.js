@@ -24,6 +24,7 @@ import Payment from './Payment.jsx'
 import CrowdfundingThankYou from './ThankYou/CrowdfundingThankYou.jsx'
 import SubscriptionThankYou from './ThankYou/SubscriptionThankYou.jsx'
 import AccountActivated from './ThankYou/AccountActivated.jsx'
+import EmailActivation from "./ThankYou/EmailActivation.jsx";
 import BookingThankYou from './ThankYou/BookingThankYou.jsx'
 import ThreadPage from './ThreadPage.jsx'
 
@@ -54,6 +55,7 @@ export {
   Payment,
   CrowdfundingThankYou,
   BookingThankYou,
+  EmailActivation,
   AccountActivated,
   SubscriptionThankYou,
   ThreadPage

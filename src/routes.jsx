@@ -20,6 +20,7 @@ import {
   CrowdfundingThankYou,
   SubscriptionThankYou,
   AccountActivated,
+  EmailActivation,
   BookingThankYou,
   Messages,
   MessageDetails,
@@ -192,6 +193,10 @@ export default [
   {
     path: '/activate',
     component: <AccountActivated />,
+  },
+  {
+    path: '/success-submit',
+    component: <EmailActivation />,
   },
   {
     path: '/messages',

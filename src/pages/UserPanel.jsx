@@ -431,7 +431,7 @@ function _CommonSidebarNav({ extra }) {
        icon: HomeIcon,
      },
      {
-       name: user.role === "SHOP_OWNER" ? "Appointments" : "My Bookings",
+       name: userm.role === "SHOP_OWNER" ? "Appointments" : "My Bookings",
        href: "/appointments",
        icon: CalendarDaysIcon,
      },
@@ -446,7 +446,7 @@ function _CommonSidebarNav({ extra }) {
       },
       { name: "Crowd Funding", href: "/funding", icon: CurrencyDollarIcon },
       { name: "Forum", href: "/forum", icon: ChatBubbleBottomCenterTextIcon },
-      { name: "Messages", href: "/messages", icon: CiChat1 },
+      { name: "Messages", href: userm.role === "Entity" ? "/entity" : "/messages", icon: CiChat1 },
      // { name: 'Financial Management', href: '#', icon: BanknotesIcon },
      // { name: 'Reporting and Analytics', href: '#', icon: DocumentChartBarIcon },
    ];
