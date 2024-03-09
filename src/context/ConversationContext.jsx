@@ -92,9 +92,8 @@ const ConversationContextProvider = ({ children }) => {
 
 
   //  function to fetch single message
-  const getSingleMessage =  async (messageId) => {
+  const getSingleMessage = useCallback( async (messageId) => {
     if (token && Object.keys(userAuth).length > 0) {
-      
       try {
         const response = await axios.get(
           `https://universoul.onrender.com/api/v1/customerservice/getMessages/${messageId}`,
@@ -104,36 +103,32 @@ const ConversationContextProvider = ({ children }) => {
             },
           }
         );
-         const data = response.data.messages
-         let newData = []
+        const data = response.data.messages;
+        let newData = [];
 
-          if (data.user_one._id === userAuth._id) {
-            // User one's ID matches your user ID
-            newData = data.messages.map((messageObj) => ({
-              message: messageObj.message,
-              tag:
-                messageObj.sender._id === userAuth._id ? "sender" : "recipient",
-              time: messageObj.createdAt,
-            }));
-          } else {
-             newData = data.messages.map((messageObj) => ({
-               message: messageObj.message,
-               tag:
-                 messageObj.sender._id === userAuth._id
-                   ? "recipient"
-                   : "sender",
-               time: messageObj.createdAt,
-             }));
-          }
-         console.log('newdata', newData)
-          setSingleMessage(newData)
-          console.log(singleMessage,'data')
-       
+        if (data.user_one._id === userAuth._id) {
+          // User one's ID matches your user ID
+          newData = data.messages.map((messageObj) => ({
+            message: messageObj.message,
+            tag:
+              messageObj.sender._id === userAuth._id ? "sender" : "recipient",
+            time: messageObj.createdAt,
+          }));
+        } else {
+          newData = data.messages.map((messageObj) => ({
+            message: messageObj.message,
+            tag:
+              messageObj.sender._id === userAuth._id ? "recipient" : "sender",
+            time: messageObj.createdAt,
+          }));
+        }
+        console.log("newdata", newData);
+        setSingleMessage(newData);
       } catch (error) {
         console.log(error);
       }
     }
-  }
+  }, []);
 
   // function to post message
   const postSingleMessage = useCallback(async (messageId) => {
@@ -156,30 +151,7 @@ const ConversationContextProvider = ({ children }) => {
     }
   }, []);
 
-  const formatData = (data) => {
-
-   let  modifiedArray = []
-
-    if (data.user_one._id === userAuth._id) {
-      // User one's ID matches your user ID
-        modifiedArray = data.messages.map((messageObj) => ({
-        message: messageObj.message,
-        tag: messageObj.sender._id === userAuth._id ? "sender" : "recipient",
-        time: messageObj.createdAt
-      }));
-      console.log(modifiedArray, 'from the format');
-     
-    } else {
-      // User two's ID matches your user ID
-      modifiedArray = data.messages.map((messageObj) => ({
-        message: messageObj.message,
-        tag: messageObj.sender._id === userAuth._id ? "recipient" : "sender",
-        time: messageObj.createdAt
-      }));
-    
-    }
-
-  };
+  
 
   return (
     <ConversationContext.Provider
