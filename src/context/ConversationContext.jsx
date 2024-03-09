@@ -141,18 +141,25 @@ const ConversationContextProvider = ({ children }) => {
   }, [token, userAuth]);
 
   // function to post message
-  const postSingleMessage = useCallback(async (recipientId) => {
+  const postSingleMessage = useCallback(async (recipientId, message, setTextMessage) => {
     if (token && Object.keys(userAuth).length > 0) {
+      if (!message.trim()) {
+        alert("Message can't be empty")
+        return
+      }
       try {
         const response = await axios.post(
-          `https://universoul.onrender.com/api/v1/customerservice/postMessages/${recipientId} `,
+          `https://universoul.onrender.com/api/v1/customerservice/sendMessages/${recipientId} ` ,
+
+          {message},
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
+
         );
-        const data = response.data.messages;
+        const data = response.data.conversation;
         let newData = [];
 
         if (data.user_one._id === userAuth._id) {
@@ -178,6 +185,9 @@ const ConversationContextProvider = ({ children }) => {
         ) {
           setSingleMessage(newData);
         }
+             
+        setTextMessage('')
+
       } catch (error) {
         console.log(error);
       }

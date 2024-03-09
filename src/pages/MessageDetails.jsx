@@ -1,22 +1,30 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState, useRef} from "react";
 import { FiChevronLeft, FiSend } from "react-icons/fi";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { ConversationContext } from "../context/ConversationContext";
 
 
 const MessageDetails = () => {
-    const { getSingleMessage, singleMessage, clearMessage } = useContext(ConversationContext);
+  const [text, setText] = useState('')
+    const { getSingleMessage, singleMessage, clearMessage, postSingleMessage } = useContext(ConversationContext);
     const { id } = useParams();
-    const history = userHistory
+    const msgRef = useRef(null)
+
+    const scrollToBottom = () => {
+      msgRef.current?.scrollIntoView({behavior: 'smooth'})
+    }
 
     useEffect(() => {
-      const unlisten = history.listen(() => {
-        clearMessage()
-      })
+      scrollToBottom()
     
+     
+    }, [singleMessage])
+    
+
+    useEffect(() => {   
       return () => {
-        unlisten()
+        clearMessage()
       }
     }, [history, clearMessage])
     
@@ -26,6 +34,7 @@ const MessageDetails = () => {
       
     }, [getSingleMessage])
     
+    console.log(text);
       
   return ( 
   <div className='lg:max-w-4xl xl:max-w-6xl w-full h-screen flex flex-col relative'>
@@ -38,7 +47,7 @@ const MessageDetails = () => {
       </Link>
 
       {/* Chat area */}
-      <div className='flex-grow p-4 overflow-y-auto'>
+      <div className='flex-grow p-4 overflow-y-auto mb-12' ref={msgRef}>
         {
           singleMessage.map((msg, i) => {
             const {message, tag, time} = msg
@@ -83,9 +92,13 @@ const MessageDetails = () => {
         <input
           type='text'
           placeholder='Type your message...'
+          value={text}
           className='flex-grow border rounded-full py-2 px-4 mr-4 focus:outline-none'
+          onChange={ (e) => { setText(e.target.value)}}
         />
-        <FiSend className='text-gray-600 cursor-pointer' />
+        <FiSend className='text-gray-600 cursor-pointer' onClick={()=>{ 
+          postSingleMessage(id, text, setText)
+        }} />
       </div>
 
     </div>

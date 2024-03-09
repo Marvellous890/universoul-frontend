@@ -1,13 +1,16 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import { IoIosSend, IoIosCloseCircleOutline } from "react-icons/io";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { buildApiEndpoint, getCookie } from "../utils";
 import axios from "axios";
+import { ConversationContext } from "../context/ConversationContext";
+
 
 const Chat = ({ recipient, recipientId, data }) => {
+  const {postSingleMessage, message} = useContext(ConversationContext)
+
   const [showDisplayBox, setShowDisplayBox] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState("");
   const [user, setUser] = useState([])
 
 console.log(` foolish shop owner: ${recipientId}`);
@@ -18,7 +21,6 @@ console.log(data);
     const token = getCookie("token");
 
     if (token) {
-      console.log(token);
       const fetchUserDetails = async () => {
         try {
           const response = await axios.get(buildApiEndpoint(`/users/one`), {
