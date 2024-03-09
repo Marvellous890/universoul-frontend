@@ -90,6 +90,14 @@ const ConversationContextProvider = ({ children }) => {
     getAllChats();
   }, [userAuth]);
 
+  // function to clear single message 
+  const clearMessage = useCallback(
+    () => {
+      setSingleMessage([])
+    },
+    [],
+  )
+  
 
   //  function to fetch single message
   const getSingleMessage = useCallback( async (messageId) => {
@@ -188,6 +196,7 @@ const ConversationContextProvider = ({ children }) => {
         userAuth,
         getSingleMessage,
         postSingleMessage,
+        clearMessage,
         singleMessage,
       }}>
       {children}

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { ConversationContext } from "../context/ConversationContext";
 
@@ -10,8 +10,8 @@ import img from "../assets/img/Messages.gif";
 
 
 
-export default function MessageComponent() {
-  const { userChats, getSingleMessage } = useContext(ConversationContext);
+const  MessageComponent = () => {
+  const { userChats} = useContext(ConversationContext);
 
   return (
     <div className="mx-auto max-w-lg py-8 px-6 lg:max-w-4xl xl:max-w-6xl">
@@ -32,7 +32,7 @@ export default function MessageComponent() {
         ) : (
           <ol className="mt-4 divide-y divide-gray-100 text-sm leading-6 col-span-10 lg:col-span-10 xl:col-span-8">
             {userChats.map(({ createdAt, sender, message }, index) => (
-              <Link key={index} to={`/message/${sender._id}`} onClick={() => getSingleMessage(sender._id)}>
+              <Link key={index} to={`/message/${sender._id}`} >
                 <li className="relative flex border-b space-x-6 py-6 xl:static cursor-pointer">
                   <div className="flex-none relative w-16 h-16">
                     {sender.pictureUrl ? (
@@ -78,7 +78,7 @@ export default function MessageComponent() {
   );
 }
 
-
+export default React.memo(MessageComponent)
 
 
 
