@@ -122,13 +122,16 @@ const ConversationContextProvider = ({ children }) => {
             time: messageObj.createdAt,
           }));
         }
-        console.log("newdata", newData);
-        setSingleMessage(newData);
+
+        if (!singleMessage.length || JSON.stringify(singleMessage) !== JSON.stringify(newData)) {
+          setSingleMessage(newData)
+          console.log(singleMessage, 'Just this one')
+        }
       } catch (error) {
         console.log(error);
       }
     }
-  }, []);
+  }, [token, userAuth]);
 
   // function to post message
   const postSingleMessage = useCallback(async (messageId) => {
@@ -151,7 +154,30 @@ const ConversationContextProvider = ({ children }) => {
     }
   }, []);
 
-  
+  const formatData = (data) => {
+
+   let  modifiedArray = []
+
+    if (data.user_one._id === userAuth._id) {
+      // User one's ID matches your user ID
+        modifiedArray = data.messages.map((messageObj) => ({
+        message: messageObj.message,
+        tag: messageObj.sender._id === userAuth._id ? "sender" : "recipient",
+        time: messageObj.createdAt
+      }));
+      console.log(modifiedArray, 'from the format');
+     
+    } else {
+      // User two's ID matches your user ID
+      modifiedArray = data.messages.map((messageObj) => ({
+        message: messageObj.message,
+        tag: messageObj.sender._id === userAuth._id ? "recipient" : "sender",
+        time: messageObj.createdAt
+      }));
+    
+    }
+
+  };
 
   return (
     <ConversationContext.Provider
