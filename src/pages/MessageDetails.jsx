@@ -31,16 +31,32 @@ const MessageDetails = () => {
             const {message, tag, time} = msg
             return (
               <>
-                <div className='flex  justify-end mb-4' key={i}>
+                <div
+                  className={`flex ${
+                    tag === "sender" ? "justify-end" : "justify-start"
+                  }  mb-4`}
+                  key={i}>
                   <div
                     className={`${
                       tag === "sender"
-                        ? "bg-primaryDark  text-white rounded-br-lg rounded-tl-lg "
-                        : "bg-gray-300   text-black rounded-bl-lg rounded-tr-lg"
+                        ? " bg-gray-300   text-black rounded-br-lg rounded-tl-lg "
+                        : "bg-primaryDark   text-white rounded-bl-lg rounded-tr-lg"
                     }  w-[70%] lg:w-full   p-2 max-w-md`}>
                     <p className='mb-2'>{message}</p>
-                    <p className={`${tag === 'sender'? 'text-xs text-right': 'text-xs text-left'}`}>
-                      Jan 23, 2024 12:23:00 AM
+                    <p
+                      className={`${
+                        tag === "sender"
+                          ? "text-xs text-right"
+                          : "text-xs text-left"
+                      }`}>
+                      {new Date(time).toLocaleString("default", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        hour12: true,
+                      })}
                     </p>
                   </div>
                 </div>
