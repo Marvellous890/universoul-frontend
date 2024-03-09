@@ -34,7 +34,6 @@ const MessageDetails = () => {
       
     }, [getSingleMessage])
     
-    console.log(text);
       
   return ( 
   <div className='lg:max-w-4xl xl:max-w-6xl w-full h-screen flex flex-col relative'>

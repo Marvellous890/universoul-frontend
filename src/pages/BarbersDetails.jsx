@@ -51,7 +51,6 @@ import { Link } from "react-router-dom";
   return (
     <>
       <section className='px-5 mx-auto container'>
-        
         <div className='grid md:grid-cols-5 gap-[50px] '>
           <div className='md:col-span-3'>
             <div className='flex flex-col md:flex-row lg:flex-row items-center  gap-5'>
@@ -83,8 +82,9 @@ import { Link } from "react-router-dom";
                 <div className='flex gap-2 items-center my-2 '>
                   <IoLocationOutline className='w-6 h-6 mt-2' />
                   <p className='text-para text-[14px] leading-6 md:text-[15px] lg:max-w-[300px] '>
-                    {" "}
-                    Chicago, Illinois
+                    {data && data.owner
+                      ? `${data.owner.state}, ${data.owner.county}`
+                      : "Unavailable"}
                   </p>
                 </div>
                 {/* Website */}
@@ -92,7 +92,7 @@ import { Link } from "react-router-dom";
                   <CiGlobe className='w-6 h-6 mt-2' />
                   <Link>
                     <p className='text-para text-[14px] leading-6 md:text-[15px] lg:max-w-[300px] '>
-                      https://www.mywebsite.com
+                      {data && data.owner ? `${data.owner.website}` : "Not specified"}
                     </p>
                   </Link>
                 </div>
@@ -140,7 +140,11 @@ import { Link } from "react-router-dom";
             <SidePanel setModalShow={setModalShow} data={data} />
           </div>
         </div>
-        <Chat recipient={data.shop_name} recipientId={data._id} data={data} />
+        <Chat
+          recipient={data.shop_name}
+          recipientId={data.owner._id}
+          data={data}
+        />
       </section>
       {showModal && (
         <BookingModal

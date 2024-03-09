@@ -7,15 +7,24 @@ import { ConversationContext } from "../context/ConversationContext";
 
 
 const Chat = ({ recipient, recipientId, data }) => {
-  const {postSingleMessage, message} = useContext(ConversationContext)
+  const { getSingleMessage, singleMessage,  postSingleMessage } =
+    useContext(ConversationContext);
 
+  const [text, setText] = useState("");
   const [showDisplayBox, setShowDisplayBox] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState([])
+  
 
 console.log(` foolish shop owner: ${recipientId}`);
 console.log(data);
   const token = getCookie("token");
+
+
+  // getting the message from context 
+    useEffect(() => {
+      getSingleMessage(recipientId);
+    }, [getSingleMessage]);
 
   useEffect(() => {
     const token = getCookie("token");
@@ -52,25 +61,7 @@ console.log(data);
     setIsOpen(false);
   };
 
-  const sendMessage = () => {
-    // Logic to send message
-    // For demo purposes, let's just log the message
-    console.log("Message sent:", message);
-    setMessage("");
-  };
-
-  // Mock messages for demonstration
-  const mockMessages = [
-    { sender: "Recipient", message: "Hey there! How can I help you?" },
-    { sender: "You", message: "Hi! I have a question about the product." },
-    { sender: "Recipient", message: "Sure, go ahead and ask!" },
-    { sender: "You", message: "Hi! I have a question about the product." },
-    { sender: "Recipient", message: "Sure, go ahead and ask!" },
-    { sender: "You", message: "Hi! I have a question about the product." },
-    { sender: "Recipient", message: "Sure, go ahead and ask!" },
-    { sender: "You", message: "Hi! I have a question about the product." },
-    { sender: "Recipient", message: "Sure, go ahead and ask!" },
-  ];
+ 
 
   return (
     <div className='fixed bottom-12 right-4'>
@@ -91,7 +82,7 @@ console.log(data);
       {/* Chat modal */}
       {isOpen && (
         <div className='fixed inset-0 z-50 overflow-y-auto bg-gray-900 bg-opacity-50 flex items-center justify-end'>
-          <div className='relative bg-white shadow-md p-6 w-[450px] mx-3 rounded-lg lg:mr-4 md:mr-4'>
+          <div className='relative mt-16 bg-white shadow-md p-6 w-[450px] mx-3 rounded-lg lg:mr-4 md:mr-4'>
             {/* Header */}
             <div className='flex justify-between items-center mb-12'>
               <h2 className='text-lg font-semibold'>{`Chat with ${recipient}! 👋`}</h2>
@@ -102,22 +93,41 @@ console.log(data);
             </div>
             {/* Chat messages */}
             <div className='overflow-y-auto max-h-[400px] md:max-h-[300px] lg:max-h-[300px]'>
-              {mockMessages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`mb-8  text-[14px] ${
-                    msg.sender === "Recipient" ? "text-left" : "text-right"
-                  }`}>
-                  <span
-                    className={`inline-block p-3 rounded-lg ${
-                      msg.sender === "Recipient"
-                        ? "bg-gray-200 rounded-br-none"
-                        : "bg-primaryDark rounded-bl-none text-white"
-                    }`}>
-                    {msg.message}
-                  </span>
-                </div>
-              ))}
+              {singleMessage.map((msg, i) => {
+                const { message, tag, time } = msg;
+                return (
+                  <div key={i}>
+                    <div
+                      className={`flex ${
+                        tag === "recipient" ? "justify-start" : "justify-end"
+                      }  mb-4`}>
+                      <div
+                        className={`${
+                          tag === "recipient"
+                            ? " bg-gray-300   text-black rounded-br-lg rounded-tl-lg "
+                            : "bg-primaryDark   text-white rounded-bl-lg rounded-tr-lg"
+                        }  w-[70%] lg:w-full   p-2 max-w-md`}>
+                        <p className='mb-2 text-[15px]'>{message}</p>
+                        <p
+                          className={`${
+                            tag === "sender"
+                              ? "text-xs text-right "
+                              : "text-xs text-left"
+                          } text-[10px]`}>
+                          {new Date(time).toLocaleString("default", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
             {/* Input field */}
             <div className='flex items-center mt-4'>
@@ -125,12 +135,12 @@ console.log(data);
                 type='text'
                 className='border border-gray-300 p-2 w-full rounded-md mr-2'
                 placeholder='Type your message...'
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
               />
               <button
                 className='bg-primaryDark text-white px-4 py-2 rounded-md'
-                onClick={sendMessage}>
+                onClick={()=> { postSingleMessage(recipientId, text, setText);}}>
                 <IoIosSend className='h-6 w-6' />
               </button>
             </div>
