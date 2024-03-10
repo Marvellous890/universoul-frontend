@@ -180,12 +180,12 @@ const Header = () => {
                   </Popover.Button>
                 </div>
               </div>
-              <div className='hidden space-x-10 lg:ml-10 lg:flex'>
+              <div className='hidden space-x-8 lg:ml-5 lg:flex'>
                 {navLinks.map((item, i) => (
                   <NavLink
                     key={i}
                     to={item.path}
-                    className='text-base font-medium text-warm-gray-500 hover:text-warm-gray-900'>
+                    className='text-sm font-medium text-warm-gray-500 hover:text-warm-gray-900'>
                     {item.label}
                   </NavLink>
                 ))}
