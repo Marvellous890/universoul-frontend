@@ -1,15 +1,15 @@
-import { useState, useContext, useEffect } from "react";
-import { scrollToTop } from "../ScollToTop.js";
-import { products, statistics } from "../data";
-import { SectionHeader, Product } from "../components";
-import { ProductCard } from "../components/MarketPlace";
+import {useState, useContext, useEffect} from "react";
+import {scrollToTop} from "../ScollToTop.js";
+import {products, statistics} from "../data";
+import {SectionHeader, Product} from "../components";
+import {ProductCard} from "../components/MarketPlace";
 import product1 from "../assets/img/product-1.JPG";
 import CountUp from "react-countup";
-import { ProductContext } from "../context/ProductContext";
-import axios from 'axios';
+import {ProductContext} from "../context/ProductContext";
+import NoProduct from "../assets/img/no-product.jpg";
 
 const MarketPlace = () => {
- const { productItem, setProductItem } = useContext(ProductContext);
+  const {productItem, setProductItem} = useContext(ProductContext);
   const [currentImg, setCurrentImg] = useState('');
 
   return (
@@ -24,7 +24,8 @@ const MarketPlace = () => {
               Our Store
             </p> */}
             <h1 className='mt-[20px] text-8xl max-sm:text-[50px] max-sm:leading-[72px] font-bold'>
-              <span className='lg:bg-white w-auto bg-white shadow-xl lg:whitespace-nowrap relative lg:text-[88px] rounded-lg z-30 md:pr-[110px] lg:pr-[110px] lg:pl-[20px] pr-[19px]'>
+              <span
+                className='lg:bg-white w-auto bg-white shadow-xl lg:whitespace-nowrap relative lg:text-[88px] rounded-lg z-30 md:pr-[110px] lg:pr-[110px] lg:pl-[20px] pr-[19px]'>
                 Marketplace
               </span>
 
@@ -47,16 +48,18 @@ const MarketPlace = () => {
             </p>
 
             {/* counter  */}
-            <div className='mt-[-10px] flex justify-center lg:justify-start md:justify-start lg:mt-[70px] lg:flex-row lg:items-center gap-5 lg:gap-[30px] '>
+            <div
+              className='mt-[-10px] flex justify-center lg:justify-start md:justify-start lg:mt-[70px] lg:flex-row lg:items-center gap-5 lg:gap-[30px] '>
               {statistics.map((stats) => {
-                const { value, label, suffix } = stats;
+                const {value, label, suffix} = stats;
                 return (
                   <div
                     key={value}
                     data-aos='fade-up'
                     data-aos-duration='1200'
                     data-aos-delay='800'>
-                    <h2 className='text-[36px] leading-[56px] lg:text-[44px] lg:leading-[44px] font-[700] text-headingColor '>
+                    <h2
+                      className='text-[36px] leading-[56px] lg:text-[44px] lg:leading-[44px] font-[700] text-headingColor '>
                       <CountUp
                         start={0}
                         end={value}
@@ -85,7 +88,7 @@ const MarketPlace = () => {
             data-aos-duration='1500'
             data-aos-delay='900'
             className='col-span-1  w-full h-[600px] my-[-70px] relative flex items-center justify-items-center '>
-            <img src={product1} alt='' className='block rounded-lg ' />
+            <img src={product1} alt='' className='block rounded-lg '/>
 
           </div>
         </div>
@@ -94,16 +97,27 @@ const MarketPlace = () => {
       {/* Product Lists  */}
       <section className='mx-auto my-10  max-w-[1200px] '>
         {/* section header  */}
-        <SectionHeader title='Our Products' subTitle='Buy Now' />
+        <SectionHeader title='Our Products' subTitle='Buy Now'/>
 
         {/* Todo: Dynamic rendering of data from the mock you created in the context  */}
 
-        <div className='grid  md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-[32px] max-w-sm mx-auto md:max-w-none lg:max-w-none md:mx-0 '>
+        {productItem.length > 0 ? (<div
+          className='grid  md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-[32px] max-w-sm mx-auto md:max-w-none lg:max-w-none md:mx-0 '>
           {productItem.map((item) => {
-            // console.log(item);
-            return <Product key={item._id} product={item} />;
-          })}
-        </div>
+              // console.log(item);
+              return <Product key={item._id} product={item}/>;
+            }
+          )}
+        </div>) : (
+          <div className="flex flex-col items-center">
+            <img
+              src={NoProduct}
+              className="w-30 md:w-96"
+              alt="No product available"/>
+            <h1 className="text-2xl">No product available</h1>
+          </div>
+        )}
+
       </section>
     </main>
   );
