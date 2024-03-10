@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getPosts } from '../api';
 import { scrollToTop } from '../ScollToTop';
 import { getBlog } from '../api/blog'
-
+import NoBlog from '../assets/img/write-content.svg'
 
 function calculateReadingTime(content) {
   const wordCount = content.split(/\s+/).length;
@@ -106,8 +106,13 @@ export default function Blog() {
             </div>
           }
 
+        {!posts.length && !isLoading && <div>
+          <img src={NoBlog} alt="No blog" className="mx-auto w-30 md:w-48"/>
+          <p className="text-center text-lg font-medium text-gray-500">No blog post available at the moment</p>
+        </div>}
 
-        <nav className="flex items-center justify-between px-4 mt-12 border-t border-gray-200 sm:px-0">
+
+        {/*<nav className="flex items-center justify-between px-4 mt-12 border-t border-gray-200 sm:px-0">
           <div className="flex flex-1 w-0 -mt-px">
             <a
               href="#"
@@ -124,7 +129,6 @@ export default function Blog() {
             >
               1
             </a>
-            {/* Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" */}
             <a
               href="#"
               className="inline-flex items-center px-4 pt-4 text-sm font-medium text-indigo-600 border-t-2 border-indigo-500"
@@ -170,7 +174,7 @@ export default function Blog() {
               <ArrowLongRightIcon className="w-5 h-5 ml-3 text-gray-400" aria-hidden="true"/>
             </a>
           </div>
-        </nav>
+        </nav>*/}
       </div>
     </div>
   );
