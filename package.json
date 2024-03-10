@@ -11,6 +11,7 @@
     "postinstall": "node ./postinstall.cjs"
   },
   "dependencies": {
+    "@bufferhead/nightowl": "^0.0.14",
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.13.0",
     "@headlessui/react": "^1.7.17",

@@ -51,3 +51,8 @@
 
     }
 }
+
+#nightowl-switcher-default {
+    top: unset!important;
+    bottom: 10px;
+}
