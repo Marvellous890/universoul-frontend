@@ -247,8 +247,8 @@ export default function Auth({ signup = false }) {
               className='flex flex-col gap-5'
               data-aos='fade-right'
               data-aos-duration='1200'>
-              <div className='flex items-center justify-between w-full '>
-                <div className='flex w-[45%]'>
+              <div className='flex flex-col gap-5 lg:gap-1 lg:flex-row items-center justify-between w-full'>
+                <div className='flex w-full lg:w-1/2'>
                   <Input
                     label='First name'
                     onChange={(e) => setFirstName(e.target.value)}
@@ -257,7 +257,7 @@ export default function Auth({ signup = false }) {
                     value={firstName}
                   />
                 </div>
-                <div className='flex w-[45%]'>
+                <div className='flex w-full lg:w-1/2'>
                   <Input
                     label='Last name'
                     onChange={(e) => setLastName(e.target.value)}
