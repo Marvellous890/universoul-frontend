@@ -155,16 +155,16 @@ export default function Auth({ signup = false }) {
             },
 
             body: JSON.stringify({
-              email,
-              password,
-              firstName,
-              lastName,
-              userName,
-              phoneNumber,
-              state,
-              city,
-              county,
-              userRole
+              email: email,
+              password: password,
+              firstName: firstName,
+              lastName:  lastName,
+              userName: userName,
+              phoneNumber: phoneNumber,
+              state: state,
+              city: city,
+              county:county,
+              role: userRole
             }),
             credentials: "include",
           });
