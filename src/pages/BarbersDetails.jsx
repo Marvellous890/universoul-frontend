@@ -67,17 +67,7 @@ import { Link } from "react-router-dom";
                   {data && data.owner ? data.shop_name : "Loading..."}
                 </h3>
 
-                <div className='flex items-center gap-2 '>
-                  <span className='flex items-center text-[14px] leading-5 gap-[6px] lg:text-[16px] lg:leading-7 font-semibold text-headingColor '>
-                    <img src={star} alt='' /> 4.6
-                  </span>
-                  <span
-                    className='
-                 text-[14px] leading-5 lg:text-[16px] lg:leading-7 font-[400] text-textColor
-                 '>
-                    (272)
-                  </span>
-                </div>
+               
                 {/* Location */}
                 <div className='flex gap-2 items-center my-2 '>
                   <IoLocationOutline className='w-6 h-6 mt-2' />

@@ -40,9 +40,9 @@ export default function Auth({ signup = false }) {
 
   const mockErrorMsg = { ...errorMessage, desc: "" };
 
+  const userRole = type === true ? 'USER' : 'Entity'
   const navigate = useNavigate();
 
-  const userRole = type === true ? 'USER' : 'Entity'
 
   useEffect(() => {
     if (errorMessage.desc) {
@@ -63,7 +63,7 @@ export default function Auth({ signup = false }) {
     });
   };
 
-          console.log(city, county, state, userRole);
+         
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -134,6 +134,7 @@ export default function Auth({ signup = false }) {
         !phoneNumber ||
         !type === null ||
         !state ||
+        !city ||
         !county
       ) {
         setErrorMessage({ ...errorMessage, desc: "Please fill in all fields" });
