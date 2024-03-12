@@ -14,56 +14,62 @@ const  MessageComponent = () => {
   const { userChats} = useContext(ConversationContext);
 
   return (
-    <div className="mx-auto max-w-lg py-8 px-6 lg:max-w-4xl xl:max-w-6xl">
-      <h2 className="text-lg font-semibold text-gray-900">Recent Messages</h2>
-      <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
+    <div className='mx-auto max-w-lg py-8 px-6 lg:max-w-4xl xl:max-w-6xl'>
+      <h2 className='text-lg font-semibold text-gray-900'>Recent Messages</h2>
+      <div className='lg:grid lg:grid-cols-12 lg:gap-x-16'>
         {userChats.length === 0 ? (
           <div className='flex flex-col items-center justify-start h-screen p-8'>
-                        <img
+            <img
               src={img}
               alt='Placeholder'
-              className=' w-[35%] object-cover'
+              className='  w-[75%] md:w-[40%] lg:w-[35%] object-cover'
             />
             <p className='mt-4 text-center text-gray-700'>
-             No Conversation yet! Message a barber to get started...
+              No Conversation yet! Message a barber to get started...
             </p>
-           
           </div>
         ) : (
-          <ol className="mt-4 divide-y divide-gray-100 text-sm leading-6 col-span-10 lg:col-span-10 xl:col-span-8">
+          <ol className='mt-4 divide-y divide-gray-100 text-sm leading-6 col-span-10 lg:col-span-10 xl:col-span-8'>
             {userChats.map(({ createdAt, sender, message }, index) => (
-              <Link key={index} to={`/message/${sender._id}`} >
-                <li className="relative flex border-b space-x-6 py-6 xl:static cursor-pointer">
-                  <div className="flex-none relative w-16 h-16">
+              <Link key={index} to={`/message/${sender._id}`}>
+                <li className='relative flex border-b space-x-6 py-6 xl:static cursor-pointer'>
+                  <div className='flex-none relative w-16 h-16'>
                     {sender.pictureUrl ? (
                       <img
                         src={sender.pictureUrl}
-                        alt=""
-                        className="h-full w-full object-cover rounded-full"
+                        alt=''
+                        className='h-full w-full object-cover rounded-full'
                       />
                     ) : (
-                      <div className="h-full w-full flex-none rounded-full bg-slate-500 items-center justify-center flex">
-                        <FaUser className="text-white w-6 h-6" />
+                      <div className='h-full w-full flex-none rounded-full bg-slate-500 items-center justify-center flex'>
+                        <FaUser className='text-white w-6 h-6' />
                       </div>
                     )}
-                    <div className="absolute bottom-0 right-0 h-4 w-4 bg-green-500 rounded-full border-2 border-white"></div>
+                    <div className='absolute bottom-0 right-0 h-4 w-4 bg-green-500 rounded-full border-2 border-white'></div>
                   </div>
-                  <div className="flex-auto    w-full">
-                    <div className="grid grid-rows-2">
-                      <div className="flex w-full items-start space-between">
-                        <h3 className="pr-2 font-semibold text-gray-900 xl:pr-0">
+                  <div className='flex-auto    w-full'>
+                    <div className='grid grid-rows-2'>
+                      <div className='flex w-full items-start space-between'>
+                        <h3 className='pr-2 font-semibold text-gray-900 xl:pr-0'>
                           {sender.userName}
                         </h3>
-                        <span className="text-xs text-gray-500">
-                          {new Date(createdAt).toLocaleString('default', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })}
+                        <span className='text-xs text-gray-500'>
+                          {new Date(createdAt).toLocaleString("default", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                          })}
                         </span>
                       </div>
-                      <div className="flex w-full items-center space-between">
-                        <p className="text-sm">
-                          {message.split(' ').slice(0, 6).join(' ')}...
+                      <div className='flex w-full items-center space-between'>
+                        <p className='text-sm'>
+                          {message.split(" ").slice(0, 6).join(" ")}...
                         </p>
-                        <div className="flex-none flex items-center justify-center bg-primaryDark text-white rounded-full h-8 w-8">
-                          <span className="text-xs">5</span>
+                        <div className='flex-none flex items-center justify-center bg-primaryDark text-white rounded-full h-8 w-8'>
+                          <span className='text-xs'>5</span>
                         </div>
                       </div>
                     </div>
