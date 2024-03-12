@@ -50,7 +50,7 @@ export const quickLinks02 = [
   },
   {
     path:  "https://uvsbarbercharity.com" ,
-    display: "Our Charity Page",
+    display: "Our Partner Charity",
   }
 
 ];

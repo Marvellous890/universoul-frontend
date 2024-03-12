@@ -106,7 +106,7 @@ export default function Auth({ signup = false }) {
               const token = auth.split(" ")[1];
               setCookie("token", token);
 
-              navigate("/profile");
+              navigate("/dashboard");
             } else {
               const responseData = response.data;
               setErrorMessage({ ...errorMessage, desc: responseData });

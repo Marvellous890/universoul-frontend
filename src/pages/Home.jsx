@@ -308,11 +308,7 @@ export default function Home() {
         })}
       </section>
 
-      <section className='container mx-auto items-center justify-center relative'>
-        <BallTriangleAnim />
-        <BarberList selectedBarbers={selectedBarbers} />
-      </section>
-
+  
 
       <section className='container mx-auto items-center justify-center'>
         <Testimonials />
