@@ -31,6 +31,8 @@ export default function Auth({ signup = false }) {
   const [variant, setVariant] = useState(signup ? "Register" : "Login");
 
   const [loading, setLoading] = useState(false);
+   const [showFullPolicy, setShowFullPolicy] = useState(false);
+
 
   const [errorMessage, setErrorMessage] = useState({
     type: "danger",
@@ -63,6 +65,12 @@ export default function Auth({ signup = false }) {
     });
   };
 
+
+  // Privacy states   
+
+   const toggleFullPolicy = () => {
+     setShowFullPolicy(!showFullPolicy);
+   };
          
 
   const handleSubmitForm = async (e) => {
@@ -184,6 +192,7 @@ export default function Auth({ signup = false }) {
             setState('')
             setCity('')
             setCounty('')
+            setType('')
 
            
             setCookie("user", responseData);
@@ -355,8 +364,7 @@ export default function Auth({ signup = false }) {
                     className={`option w-[50%] mr-4 bg-slate-50 rounded-lg shadow-lg p-4 cursor-pointer ${
                       type === true && "border border-black"
                     }`}
-                    onClick={() => handleOptionChange(true)}
-                 >
+                    onClick={() => handleOptionChange(true)}>
                     <UserIcon className='w-8 h-8 mb-4 text-black' />
                     <p className='text-grey text-sm'>Individual</p>
                   </div>
@@ -364,22 +372,52 @@ export default function Auth({ signup = false }) {
                     className={`option w-[50%] mr-4 bg-slate-50 rounded-lg shadow-lg p-4 cursor-pointer ${
                       type === false && "border border-black"
                     }`}
-                    onClick={() => handleOptionChange(false)}
-                    >
+                    onClick={() => handleOptionChange(false)}>
                     <UserGroupIcon className='w-8 h-8 mb-4 text-black' />
                     <p className='text-grey text-sm'>Entity (2+) </p>
                   </div>
                 </div>
               </div>
+
+              {/* Display part of the policy */}
+
+              <div className='max-w-md mx-auto p-4 border border-gray-300 rounded'>
+                <h2 className='text-xl font-semibold mb-4'>Privacy Policy</h2>
+                <div className='mb-4'>
+                  <p className='mb-2'>
+                    {showFullPolicy ? (
+                      <>
+                        This document outlines the terms and conditions
+                        governing the use of our service and the protection of
+                        your personal information.
+                        {/* Add more content here */}
+                      </>
+                    ) : (
+                      <>
+                        This document outlines the terms and conditions
+                        governing the use of our service and the protection of
+                        your personal information.
+                        {/* Display ellipsis and "Read more" only if full policy is not shown */}
+                        <span
+                          className='text-blue-600 cursor-pointer'
+                          onClick={toggleFullPolicy}>
+                          Read more
+                          <span className='absolute bottom-0 w-full h-12 bg-gradient-to-b from-transparent to-black'></span>
+                        </span>
+                      </>
+                    )}
+                  </p>
+                </div>
+             
+              </div>
               <div
                 className='flex w-full'
                 data-aos='fade-up'
                 data-aos-duration='1200'>
-                <CheckBox  />
+                <CheckBox />
               </div>
             </>
           )}
-
 
           <button
             type='submit'
