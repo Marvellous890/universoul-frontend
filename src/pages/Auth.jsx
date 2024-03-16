@@ -8,13 +8,7 @@ import { ImSpinner8 } from "react-icons/im";
 import { buildApiEndpoint, setCookie } from "../utils"
 import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
-import {
- 
-  UserGroupIcon,
-
-  UserIcon,
-  
-} from "@heroicons/react/24/outline";
+import {UserGroupIcon, UserIcon} from "@heroicons/react/24/outline";
  
 export default function Auth({ signup = false }) {
   const [type, setType] = useState("true");
@@ -25,11 +19,10 @@ export default function Auth({ signup = false }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // consitionals for sign in
+  // conditionals for sign in
   const [variant, setVariant] = useState(signup ? "Register" : "Login");
 
   const [loading, setLoading] = useState(false);
-   const [showFullPolicy, setShowFullPolicy] = useState(false);
    const [isChecked, setIsChecked] = useState(false);
 
 
