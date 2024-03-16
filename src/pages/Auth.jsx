@@ -20,9 +20,7 @@ export default function Auth({ signup = false }) {
   const [type, setType] = useState("true");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [county, setCounty] = useState("");
+ 
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -32,6 +30,13 @@ export default function Auth({ signup = false }) {
 
   const [loading, setLoading] = useState(false);
    const [showFullPolicy, setShowFullPolicy] = useState(false);
+   const [isChecked, setIsChecked] = useState(false);
+
+
+// checkbox functionality 
+   const handleCheckboxChange = () => {
+     setIsChecked(!isChecked);
+   };
 
 
   const [errorMessage, setErrorMessage] = useState({
@@ -66,11 +71,7 @@ export default function Auth({ signup = false }) {
   };
 
 
-  // Privacy states   
 
-   const toggleFullPolicy = () => {
-     setShowFullPolicy(!showFullPolicy);
-   };
          
 
   const handleSubmitForm = async (e) => {
@@ -140,10 +141,7 @@ export default function Auth({ signup = false }) {
         !lastName ||
         !userName ||
         !phoneNumber ||
-        !type === null ||
-        !state ||
-        !city ||
-        !county
+        !type
       ) {
         setErrorMessage({ ...errorMessage, desc: "Please fill in all fields" });
       } else if (password.length < 6) {
@@ -169,9 +167,6 @@ export default function Auth({ signup = false }) {
               lastName:  lastName,
               userName: userName,
               phoneNumber: phoneNumber,
-              state: state,
-              city: city,
-              county:county,
               role: userRole
             }),
             credentials: "include",
@@ -189,9 +184,6 @@ export default function Auth({ signup = false }) {
             setFirstName('')
             setLastName('')
             setPhoneNumber('')
-            setState('')
-            setCity('')
-            setCounty('')
             setType('')
 
            
@@ -297,33 +289,6 @@ export default function Auth({ signup = false }) {
                   value={userName}
                 />
               </div>
-              <div className='flex w-full'>
-                <Input
-                  label='State'
-                  onChange={(e) => setState(e.target.value)}
-                  id='state'
-                  type='text'
-                  value={state}
-                />
-              </div>
-              <div className='flex w-full'>
-                <Input
-                  label='City'
-                  onChange={(e) => setCity(e.target.value)}
-                  id='city'
-                  type='text'
-                  value={city}
-                />
-              </div>
-              <div className='flex w-full'>
-                <Input
-                  label='County'
-                  onChange={(e) => setCounty(e.target.value)}
-                  id='county'
-                  type='text'
-                  value={county}
-                />
-              </div>
             </div>
           )}
 
@@ -379,42 +344,26 @@ export default function Auth({ signup = false }) {
                 </div>
               </div>
 
-              {/* Display part of the policy */}
+              {/* Privacy and policy section  */}
 
-              <div className='max-w-md mx-auto p-4 border border-gray-300 rounded'>
-                <h2 className='text-xl font-semibold mb-4'>Privacy Policy</h2>
-                <div className='mb-4'>
-                  <p className='mb-2'>
-                    {showFullPolicy ? (
-                      <>
-                        This document outlines the terms and conditions
-                        governing the use of our service and the protection of
-                        your personal information.
-                        {/* Add more content here */}
-                      </>
-                    ) : (
-                      <>
-                        This document outlines the terms and conditions
-                        governing the use of our service and the protection of
-                        your personal information.
-                        {/* Display ellipsis and "Read more" only if full policy is not shown */}
-                        <span
-                          className='text-blue-600 cursor-pointer'
-                          onClick={toggleFullPolicy}>
-                          Read more
-                          <span className='absolute bottom-0 w-full h-12 bg-gradient-to-b from-transparent to-black'></span>
-                        </span>
-                      </>
-                    )}
-                  </p>
-                </div>
-             
-              </div>
               <div
                 className='flex w-full'
                 data-aos='fade-up'
                 data-aos-duration='1200'>
-                <CheckBox />
+                <div className='flex items-center'>
+                  <input
+                    type='checkbox'
+                    id='privacyCheckbox'
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                    className='h-4 w-4 text-black focus:outline-none border-gray-300 rounded'
+                  />
+                  <label
+                    htmlFor='privacyCheckbox'
+                    className='ml-2 text-sm text-gray-700'>
+                    Agree to privacy and policy terms
+                  </label>
+                </div>
               </div>
             </>
           )}
