@@ -14,7 +14,7 @@ const  MessageComponent = () => {
   const { userChats} = useContext(ConversationContext);
 
   return (
-    <div className='mx-auto max-w-lg py-8 px-6 lg:max-w-4xl xl:max-w-6xl'>
+    <div className='mx-auto max-w-lg py-8 px-6 lg:max-w-4xl xl:max-w-6xl w-full'>
       <h2 className='text-lg font-semibold text-gray-900'>Recent Messages</h2>
       <div className='lg:grid lg:grid-cols-12 lg:gap-x-16'>
         {userChats.length === 0 ? (
@@ -22,7 +22,7 @@ const  MessageComponent = () => {
             <img
               src={img}
               alt='Placeholder'
-              className='  w-[75%] md:w-[40%] lg:w-[35%] object-cover'
+              className='  w-[95%] md:w-[40%] lg:w-[35%] object-cover'
             />
             <p className='mt-4 text-center text-gray-700'>
               No Conversation yet! Message a barber to get started...
@@ -32,7 +32,7 @@ const  MessageComponent = () => {
           <ol className='mt-4 divide-y divide-gray-100 text-sm leading-6 col-span-10 lg:col-span-10 xl:col-span-8'>
             {userChats.map(({ createdAt, sender, message }, index) => (
               <Link key={index} to={`/message/${sender._id}`}>
-                <li className='relative flex border-b space-x-6 py-6 xl:static cursor-pointer'>
+                <li className='relative flex w-full border-b space-x-6 py-6 xl:static cursor-pointer'>
                   <div className='flex-none relative w-16 h-16'>
                     {sender.pictureUrl ? (
                       <img
@@ -49,7 +49,7 @@ const  MessageComponent = () => {
                   </div>
                   <div className='flex-auto    w-full'>
                     <div className='grid grid-rows-2'>
-                      <div className='flex w-full items-start space-between'>
+                      <div className='flex w-full items-start justify-between'>
                         <h3 className='pr-2 font-semibold text-gray-900 xl:pr-0'>
                           {sender.userName}
                         </h3>
@@ -64,7 +64,7 @@ const  MessageComponent = () => {
                           })}
                         </span>
                       </div>
-                      <div className='flex w-full items-center space-between'>
+                      <div className='flex w-full items-center justify-between'>
                         <p className='text-sm'>
                           {message.split(" ").slice(0, 6).join(" ")}...
                         </p>
