@@ -11,7 +11,7 @@ import img from "../assets/img/Messages.gif";
 
 
 const  MessageComponent = () => {
-  const { userChats} = useContext(ConversationContext);
+  const { userChats, onlineUsers} = useContext(ConversationContext);
 
   return (
     <div className='mx-auto max-w-lg py-8 px-6 lg:max-w-4xl xl:max-w-6xl w-full'>
@@ -45,7 +45,11 @@ const  MessageComponent = () => {
                         <FaUser className='text-white w-6 h-6' />
                       </div>
                     )}
-                    <div className='absolute bottom-0 right-0 h-4 w-4 bg-green-500 rounded-full border-2 border-white'></div>
+                    {
+                      onlineUsers?.some(user => user?.userId === sender?._id) ? (<div className='absolute bottom-0 right-0 h-4 w-4 bg-green-500 rounded-full border-2 border-white'></div>) : (
+                        <></>
+                      )
+                    }
                   </div>
                   <div className='flex-auto    w-full'>
                     <div className='grid grid-rows-2'>

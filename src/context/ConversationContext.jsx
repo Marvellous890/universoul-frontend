@@ -4,7 +4,7 @@ import { getCookie } from "../utils";
 import { io } from 'socket.io-client'
 
 const token = getCookie("token");
-console.log(token);
+
 export const ConversationContext = createContext();
 const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
 
@@ -14,6 +14,36 @@ const ConversationContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [userAuth, setUserAuth] = useState({});
   const [singleMessage, setSingleMessage] = useState([]);
+  const [socket, setSocket] = useState(null)
+  const [onlineUsers, setOnlineUsers] = useState([])
+
+  console.log(onlineUsers);
+
+  useEffect(() => {
+    
+   const newSocket = io('http://localhost:4040')
+   setSocket(newSocket)
+
+   return ()=>{
+    newSocket.disconnect()
+   }
+  }, [userAuth])
+
+  // socket for online users 
+  useEffect(() => {
+   if(userAuth._id){
+     if (socket === null) return;
+     socket.emit("addNewUser", userAuth?._id);
+     socket.on('getOnlineUsers', (res) => {
+        setOnlineUsers(res)
+     })
+   }
+   return ()=>{
+    socket.off('getOnlineUsers')
+   }
+  }, [socket])
+  
+  
 
   useEffect(() => {
     // get user auth
@@ -208,6 +238,7 @@ const ConversationContextProvider = ({ children }) => {
         postSingleMessage,
         clearMessage,
         singleMessage,
+        onlineUsers
       }}>
       {children}
     </ConversationContext.Provider>
