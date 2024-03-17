@@ -71,7 +71,7 @@ const MessageDetails = () => {
                           ? "text-xs text-right"
                           : "text-xs text-left"
                       }`}>
-                      {moment(createdAt).calendar()}
+                      {moment(time).calendar()}
                     </p>
                   </div>
                 </div>
