@@ -3,6 +3,7 @@ import { FiChevronLeft, FiSend } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { ConversationContext } from "../context/ConversationContext";
+import moment from "moment";
 
 
 const MessageDetails = () => {
@@ -70,14 +71,7 @@ const MessageDetails = () => {
                           ? "text-xs text-right"
                           : "text-xs text-left"
                       }`}>
-                      {new Date(time).toLocaleString("default", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
-                        hour12: true,
-                      })}
+                      {moment(createdAt).calendar()}
                     </p>
                   </div>
                 </div>

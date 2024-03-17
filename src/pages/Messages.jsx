@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import moment from 'moment'
 
 import { ConversationContext } from "../context/ConversationContext";
 
@@ -58,14 +59,7 @@ const  MessageComponent = () => {
                           {sender.userName}
                         </h3>
                         <span className='text-xs text-gray-500'>
-                          {new Date(createdAt).toLocaleString("default", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                            hour: "numeric",
-                            minute: "numeric",
-                            hour12: true,
-                          })}
+                          {moment(createdAt).calendar()}
                         </span>
                       </div>
                       <div className='flex w-full items-center justify-between'>
