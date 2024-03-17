@@ -1,6 +1,6 @@
 import Input from "../components/Input";
-import { CheckBox, CheckOptions } from "../components";
 import { useState, useCallback, useEffect } from "react";
+import { Transition } from '@headlessui/react';
 import formImg from "../assets/img/Placeholder.gif";
 import formImg2 from "../assets/img/Sign up.gif";
 import Notification from "../components/Notification";
@@ -20,10 +20,11 @@ export default function Auth({ signup = false }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // conditionals for sign in
-  const [variant, setVariant] = useState(signup ? "Register" : "Login");
+  const [variant, setVariant] = useState( signup ? "Register" : "Login");
 
   const [loading, setLoading] = useState(false);
    const [isChecked, setIsChecked] = useState(false);
+     const [showFullPolicy, setShowFullPolicy] = useState(false);
 
 
 // checkbox functionality 
@@ -349,12 +350,17 @@ export default function Auth({ signup = false }) {
                     id='privacyCheckbox'
                     checked={isChecked}
                     onChange={handleCheckboxChange}
-                    className='h-4 w-4 text-black focus:outline-none border-gray-300 rounded'
+                    className='h-4 w-4 text-black focus:outline-none border-gray-300 rounded cursor-pointer'
                   />
                   <label
                     htmlFor='privacyCheckbox'
                     className='ml-2 text-sm text-gray-700'>
-                    Agree to privacy and policy terms
+                    Agree to
+                    <span
+                      className='underline cursor-pointer ml-1 font-bold'
+                      onClick={() => setShowFullPolicy(true)}>
+                      Privacy and Policy terms
+                    </span>
                   </label>
                 </div>
               </div>
@@ -386,6 +392,190 @@ export default function Auth({ signup = false }) {
           </p>
         </div>
       </form>
+
+      {/* Modal for Privacy Policy */}
+      <Transition
+        show={showFullPolicy}
+        as='div'
+        className={`fixed inset-0 z-50 overflow-y-auto ${showFullPolicy ? 'transition-opacity duration-300':'hidden' } `}>
+        <div className='flex items-center justify-center min-h-screen'>
+          <Transition.Child
+            as='div'
+            className='fixed inset-0 transition-opacity'
+            onClick={() => setShowFullPolicy(false)}>
+            <div className='absolute inset-0 bg-gray-500 opacity-75'></div>
+          </Transition.Child>
+
+          <Transition.Child
+            as='div'
+            className={`bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-11/12 ${showFullPolicy ?  'scale-100' : 'scale-70'} `} >
+            <div className='p-4'>
+              <h2 className='text-xl font-bold mb-4 text-center'>
+                UVS Privacy and Policy
+              </h2>
+              <div className='h-[350px] rounded-lg border border-gray-300 p-4 overflow-y-auto'>
+                <div className='p-4'>
+                  <h2 className='text-xl font-bold mb-4'>
+                    Terms & Conditions Universoul Barbers
+                  </h2>
+                  <p className='mb-4'>Effective Date: [Insert Date]</p>
+
+                  <ol className='list-decimal pl-5'>
+                    <li className='mb-4'>
+                      <span className='font-semibold'> Introduction:</span>{" "}
+                      Welcome to Universoul Barbers (hereinafter referred to as
+                      “Universoul,” “we,” “our,” or “us”). These Terms &
+                      Conditions govern your access to and use of our services.
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'>Service Providers:</span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          Universoul Barbers provides a platform for connecting
+                          clients with independent service providers (barbers).
+                        </li>
+                        <li>
+                          Service providers are responsible for their own
+                          equipment, tools, and supplies needed to perform their
+                          services.
+                        </li>
+                      </ul>
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'>
+                        Client Appointments:
+                      </span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          Clients may book appointments with service providers
+                          through the Universoul Barbers platform.
+                        </li>
+                        <li>
+                          Universoul Barbers does not guarantee the availability
+                          of specific service providers or appointment times.
+                        </li>
+                      </ul>
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'>Payment and Fees:</span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          Clients are responsible for paying service fees
+                          directly to the service providers for services
+                          rendered.
+                        </li>
+                        <li>
+                          Universoul Barbers may charge a service fee for the
+                          use of its platform, which will be clearly disclosed
+                          to clients.
+                        </li>
+                      </ul>
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'> Code of Conduct:</span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          Service providers are expected to conduct themselves
+                          professionally and provide high-quality services to
+                          clients.
+                        </li>
+                        <li>
+                          Clients are expected to treat service providers with
+                          respect and adhere to appointment schedules.
+                        </li>
+                      </ul>
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'> Liability:</span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          Universoul Barbers shall not be liable for any
+                          damages, losses, or injuries resulting from the use of
+                          its platform or services.
+                        </li>
+                        <li>
+                          Service providers are solely responsible for the
+                          quality and safety of their services.
+                        </li>
+                      </ul>
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'>
+                        Intellectual Property:
+                      </span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          All content and materials on the Universoul Barbers
+                          platform are the property of Universoul or its
+                          licensors and may not be reproduced without
+                          permission.
+                        </li>
+                      </ul>
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'> Termination:</span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          Universoul Barbers reserves the right to terminate
+                          access to its platform for any user who violates these
+                          Terms & Conditions or engages in misconduct.
+                        </li>
+                      </ul>
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'> Governing Law:</span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          These Terms & Conditions shall be governed by and
+                          construed in accordance with the laws of
+                          [Jurisdiction], without regard to its conflict of law
+                          provisions.
+                        </li>
+                      </ul>
+                    </li>
+                    <li className='mb-4'>
+                      <span className='font-semibold'>
+                        Changes to the Terms & Conditions:
+                      </span>
+                      <ul className='list-disc pl-5'>
+                        <li>
+                          Universoul Barbers reserves the right to update or
+                          revise these Terms & Conditions at any time without
+                          prior notice. Any changes will be effective
+                          immediately upon posting on the Universoul Barbers
+                          platform.
+                        </li>
+                      </ul>
+                    </li>
+                  </ol>
+
+                  <p className='mt-4'>
+                    By accessing or using our services, you acknowledge that you
+                    have read, understood, and agree to be bound by these Terms
+                    & Conditions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className='p-4 bg-gray-100 flex justify-end'>
+              <button
+                onClick={() => setShowFullPolicy(false)}
+                className='bg-gray-400 text-white py-2 px-4 rounded-md mr-2'>
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  setShowFullPolicy(false);
+                  setIsChecked(true); // Update checkbox state on Agree
+                }}
+                className='bg-primaryDark text-white py-2 px-4 rounded-md'>
+                Agree
+              </button>
+            </div>
+          </Transition.Child>
+        </div>
+      </Transition>
     </section>
   );
 }
