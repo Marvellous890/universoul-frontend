@@ -32,7 +32,7 @@ const MessageDetails = () => {
     useEffect(() => {
       getSingleMessage(id)
       
-    }, [ID])
+    }, [id])
     
       
   return ( 
