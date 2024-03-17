@@ -25,7 +25,7 @@ const ConversationContextProvider = ({ children }) => {
    setSocket(newSocket)
 
    return ()=>{
-    newSocket.disconnect()
+    newSocket. disconnect()
    }
   }, [userAuth])
 
@@ -41,7 +41,7 @@ const ConversationContextProvider = ({ children }) => {
       socket.off('getOnlineUsers')
      }
    }
-  }, [socket])
+  }, [socket, userAuth._id])
   
   
 
