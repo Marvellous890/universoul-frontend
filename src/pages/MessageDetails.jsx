@@ -26,13 +26,13 @@ const MessageDetails = () => {
       return () => {
         clearMessage()
       }
-    }, [history, clearMessage])
+    }, [])
     
 
     useEffect(() => {
       getSingleMessage(id)
       
-    }, [getSingleMessage])
+    }, [ID])
     
       
   return ( 
