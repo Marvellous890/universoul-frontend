@@ -225,7 +225,7 @@ export default function Auth({ signup = false }) {
         />
       </div>
       <form method='POST' onSubmit={handleSubmitForm}>
-        <div className='col-span-1 w-[95%] px-5 h-full flex flex-col gap-5 items-center justify-start'>
+        <div className='col-span-1 w-[100%] px-2 h-full flex flex-col gap-5 items-center justify-start'>
           <h1
             data-aos='fade-down'
             data-aos-duration='1200'
@@ -242,11 +242,11 @@ export default function Auth({ signup = false }) {
           </p>
           {variant === "Register" && (
             <div
-              className='flex flex-col gap-5'
+              className='flex flex-col w-full gap-5'
               data-aos='fade-right'
               data-aos-duration='1200'>
-              <div className='flex items-center justify-between w-full '>
-                <div className='flex w-[45%]'>
+              <div className='flex items-center flex-col gap-4 lg:gap-0 md:gap-0 lg:flex-row md:flex-row justify-between w-full '>
+                <div className='flex w-[100%] md:w-[45%]'>
                   <Input
                     label='First name'
                     onChange={(e) => setFirstName(e.target.value)}
@@ -255,7 +255,7 @@ export default function Auth({ signup = false }) {
                     value={firstName}
                   />
                 </div>
-                <div className='flex w-[45%]'>
+                <div className='flex w-[100%] md:w-[45%]'>
                   <Input
                     label='Last name'
                     onChange={(e) => setLastName(e.target.value)}
@@ -397,7 +397,9 @@ export default function Auth({ signup = false }) {
       <Transition
         show={showFullPolicy}
         as='div'
-        className={`fixed inset-0 z-50 overflow-y-auto ${showFullPolicy ? 'transition-opacity duration-300':'hidden' } `}>
+        className={`fixed inset-0 z-50 overflow-y-auto ${
+          showFullPolicy ? "transition-opacity duration-300" : "hidden"
+        } `}>
         <div className='flex items-center justify-center min-h-screen'>
           <Transition.Child
             as='div'
@@ -408,7 +410,9 @@ export default function Auth({ signup = false }) {
 
           <Transition.Child
             as='div'
-            className={`bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-11/12 ${showFullPolicy ?  'scale-100' : 'scale-70'} `} >
+            className={`bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-11/12 ${
+              showFullPolicy ? "scale-100" : "scale-70"
+            } `}>
             <div className='p-4'>
               <h2 className='text-xl font-bold mb-4 text-center'>
                 UVS Privacy and Policy
