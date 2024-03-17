@@ -146,11 +146,12 @@ const ConversationContextProvider = ({ children }) => {
         recipientId = findRecipient(singleMessage, userAuth._id)
       }
       socket.emit("sendMessage", {singleMessage, recipientId});
+       return () => {
+         socket.off("sendMessage");
+       };
     }
 
-    return ()=>{
-      socket.off('sendMessage')
-    }
+   
    
   }, [singleMessage])
   
