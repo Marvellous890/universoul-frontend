@@ -22,7 +22,7 @@ const  MessageComponent = () => {
             <img
               src={img}
               alt='Placeholder'
-              className='  w-[95%] md:w-[40%] lg:w-[35%] object-cover'
+              className='  w-[100%] md:w-[40%] lg:w-[35%] object-cover'
             />
             <p className='mt-4 text-center text-gray-700'>
               No Conversation yet! Message a barber to get started...
