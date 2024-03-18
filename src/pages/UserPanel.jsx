@@ -440,7 +440,7 @@ function _CommonSidebarNav({ extra }) {
      { name: 'Customers', href: '/customers', icon: UserGroupIcon },
      
      {
-       name: "Inventory & Shop",
+       name: "Build Your Business",
        href: "/my-store",
        icon: BuildingStorefrontIcon,
       },

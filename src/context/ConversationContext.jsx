@@ -119,7 +119,7 @@ const ConversationContextProvider = ({ children }) => {
     };
 
     getAllChats();
-  }, [userAuth]);
+  }, [singleMessage]);
 
   // function to clear single message 
   const clearMessage = useCallback(
