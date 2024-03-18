@@ -216,6 +216,32 @@ export const pricing = [
   },
 ];
 
+
+export const services =  [
+    'Mobile Haircuts / Transportation ',
+
+'Custom Product Creation',
+
+'Instant Clients', 
+
+'Crowdfunding creation',
+
+'Marketplace ',
+
+'Community Form',
+
+'Backend Analytics', 
+
+'Booking Management', 
+
+'Priority Customer Support ',
+
+'Weekly Improvement Updates From our Communities & Teams',
+
+'Live community and Team Chats'
+  ]
+
+
 export const fundRaisingProgress = [
         {
           donation_title: "Kids Donation",
