@@ -217,25 +217,14 @@ export default function Home() {
 
         <div className='  p-8 w-full'>
           <h1
-            className='text-center font-bold text-[26px] lg:text-30px md:text-30px leading-12'
+            className='text-center font-bold text-[26px] lg:text-30px md:text-30px leading-12 mb-6'
             data-aos='fade-down'
             data-aos-duration='500'
             data-aos-delay='700'>
             First Ever Barbering Contracting Platform Has Arrived!
           </h1>
           {
-            // <p
-            //   className='text-para text-center lg:text-left md:text-left'
-            //   data-aos='fade-up'
-            //   data-aos-duration='300'
-            //   data-aos-delay='400'>
-            //   Discover the ultimate platform designed exclusively for salons,
-            //   where innovation meets efficiency. Our state-of-the-art solution
-            //   empowers your salon business with seamless appointment scheduling,
-            //   client management, and powerful marketing tools. Elevate your
-            //   salon experience and unlock the potential for growth and success.
-            //   Join us today and revolutionize the way you run your salon!
-            // </p>
+           
              <ul className='mt-2 space-y-4  ' 
               data-aos='fade-up'
               data-aos-duration='300'
@@ -244,7 +233,7 @@ export default function Home() {
                     return (
                       <li
                         key={i}
-                        className='text-sm text-textColor leading-5 flex  '>
+                        className='text-[14px] text-textColor leading-5 flex  '>
                         <span
                           className='h-5 w-5 bg-black text-white shrink-0 rounded-full flex items-center p-1 justify-center'>
                           <AiOutlineCheck className='text-white' />
