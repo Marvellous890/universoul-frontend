@@ -31,6 +31,7 @@ const Header = () => {
 
   function logout() {
     deleteAllCookies();
+    localStorage.clear()
     navigate("/login");
   }
   const { itemCount } = useContext(CartContext);
@@ -47,7 +48,6 @@ const Header = () => {
           },
         });
         
-        console.log(response);
         setCart(response.data.carts);
       } catch (error) {
         console.error('Error fetching data:', error.message);

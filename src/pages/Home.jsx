@@ -153,7 +153,7 @@ export default function Home() {
         <div className='absolute top-[25%] left-[43%] h-[100px] w-[100px]'>
           <img src={Design3} alt='' className='w-full block' />
         </div>
-        <div className='absolute -top-[10%] -right-[0%] h-[100px] w-[100px]'>
+        <div className='absolute -top-[10%] -right-[7%] h-[100px] w-[100px]'>
           <img src={Design2} alt='' className='w-full block' />
         </div>
         <div className='absolute -bottom-[10%] -right-[0%] h-[100px] w-[100px] z-10 '>
@@ -217,7 +217,7 @@ export default function Home() {
 
         <div className='  p-8 w-full'>
           <h1
-            className='text-center font-bold text-[30px] leading-12'
+            className='text-center font-bold text-[26px] lg:text-30px md:text-30px leading-12'
             data-aos='fade-down'
             data-aos-duration='500'
             data-aos-delay='700'>
@@ -236,7 +236,7 @@ export default function Home() {
             //   salon experience and unlock the potential for growth and success.
             //   Join us today and revolutionize the way you run your salon!
             // </p>
-             <ul className='mt-6 space-y-4  ' 
+             <ul className='mt-2 space-y-4  ' 
               data-aos='fade-up'
               data-aos-duration='300'
               data-aos-delay='400'>
