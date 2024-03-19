@@ -235,7 +235,7 @@ export default function Home() {
                         key={i}
                         className='text-[14px] text-textColor leading-5 flex  '>
                         <span
-                          className='h-5 w-5 bg-black text-white shrink-0 rounded-full flex items-center p-1 justify-center'>
+                          className='h-8 w-8 bg-black text-white shrink-0 rounded-full flex items-center p-1 justify-center'>
                           <AiOutlineCheck className='text-white' />
                         </span>
                         <span className='ml-3'> {service}</span>
