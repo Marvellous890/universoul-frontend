@@ -265,7 +265,7 @@ export default function Home() {
               className='flex items-center flex-col p-8 justify-center w-full bg-white rounded-lg shadow-2xl '
               key={index}>
               <img src={img} width={50} height={40} alt={title} />
-              <h2 className='text-center text-[24px] md:text-[28pz] lg:text-[28px] font-bold my-5 '>
+              <h2 className='text-center text-[26px] md:text-[28pz] lg:text-[28px] font-bold my-5 '>
                 {title}
               </h2>
               <p
