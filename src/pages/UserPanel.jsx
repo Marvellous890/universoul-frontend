@@ -120,6 +120,7 @@ export default function UserPanel({ fragment, owner = false }) {
 
   function logout() {
     deleteAllCookies();
+    localStorage.clear()
     navigate('/login');
   }
 

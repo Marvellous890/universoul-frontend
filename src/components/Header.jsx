@@ -31,6 +31,7 @@ const Header = () => {
 
   function logout() {
     deleteAllCookies();
+    
     localStorage.clear()
     navigate("/login");
   }
