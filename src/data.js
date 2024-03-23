@@ -8,6 +8,7 @@ import product1 from './assets/img/product-1.JPG'
 import product2 from './assets/img/product-2.jpg'
 import product3 from './assets/img/product-3.jpg'
 import customerImg from './assets/img/patient-avatar.png'
+import firstTesti from './assets/img/testimonial-1.JPG'
 import { isLoggedIn } from "./utils";
 
 
@@ -63,9 +64,9 @@ export const testimonials = [
   {
     id: 1,
     name: "Sarah M",
-    img: customerImg,
+    img: firstTesti,
     review:
-      "I've been a loyal customer at this salon for years, and I can confidently say it's the best in town. The staff is not only skilled and professional but also incredibly friendly. The ambiance is inviting, and every visit feels like a pampering experience. I wouldn't trust my hair and beauty needs to anyone else!",
+      "Stylez is the best barber in the Midwest, I've never had a bad haircut with him in 3 years.The VIP haircut is the only option for me going forward, very clean, precise, and quick overall. The vip experience is the best I've ever had, definitely recommend it for anyone who wants to look and feel their best. High quality cuts every time I get a VIP haircut at a good price also. I'm always satisfied and happy with my VIP cut it's an incredible upgrade. Amazing experience overall, I've never looked this good until I started getting the VIP haircut",
   },
   {
     id: 2,
@@ -174,13 +175,14 @@ export const categories = [
 
 export const pricing = [
   {
-    title: "Basic",
+    title: "Apprentice",
     price: "0",
     currency: "USD",
     frequency: "/month",
     description: "The essential package for your best work for client",
     features: [
       "Access to store",
+      "10 Clients only",
       "3 products listing",
       "Additional barber (crew)",
       "Contracts available",
@@ -189,7 +191,23 @@ export const pricing = [
     recommended: false,
   },
   {
-    title: "Premium",
+    title: "Journeyman",
+    price: "0",
+    currency: "USD",
+    frequency: "/month",
+    description: "The essential package for your best work for client",
+    features: [
+      "Access to store",
+      "3 products listing",
+      '20 Clients only',
+      "Additional barber (crew)",
+      "Contracts available",
+    ],
+    cta: "Get Started",
+    recommended: false,
+  },
+  {
+    title: "Gold",
     price: 25,
     currency: "USD",
     frequency: "/month",
@@ -197,6 +215,7 @@ export const pricing = [
     features: [
       "Access to store",
       "20 products listing",
+      '60 clients only',
       "10 Additional barber (crew)",
       "Contracts available",
     ],
@@ -204,14 +223,15 @@ export const pricing = [
     recommended: true,
   },
   {
-    title: "Diamond",
-    price: 40,
+    title: "Grandmaster",
+    price: 289.99,
     currency: "USD",
     frequency: "/month",
     description: "The essential package for your best work for client",
     features: [
       "Access to store",
       "3 products listing",
+      'Unlimited clients',
       "Additional barber (crew)",
       "Contracts available",
     ],

@@ -81,7 +81,7 @@ const Pricing = () => {
               {/* CTA  */}
 
    {
-  title === "Basic"?
+  title === "Apprentice" ?
   null :
  (
   <>

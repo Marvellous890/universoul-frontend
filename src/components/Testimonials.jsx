@@ -40,8 +40,8 @@ const Testimonials = () => {
               return (
                 <SwiperSlide key={id}>
                   <div className='px-5 py-[30px] rounded-[13px]'>
-                    <div className='flex items-center gap-[13px]'>
-                      <img src={img} alt=''/>
+                    <div className='flex items-center gap-[13px] w-14 h-14 rounded-lg '>
+                      <img src={img} alt='' className='object-cover block rounded-lg'/>
                       <div
                         className='
                      '>
