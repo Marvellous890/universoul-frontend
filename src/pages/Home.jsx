@@ -1,45 +1,40 @@
-import { useEffect, useState } from 'react';
-import {
-  ArrowUturnLeftIcon,
-  ChatBubbleBottomCenterTextIcon,
-  ChatBubbleLeftEllipsisIcon,
-  ChatBubbleLeftRightIcon,
-  DocumentChartBarIcon,
-  HeartIcon,
-  InboxIcon,
-  PencilSquareIcon,
-  QuestionMarkCircleIcon,
-  TrashIcon,
-  UsersIcon,
-} from '@heroicons/react/24/outline'
+import Modal from "../components/Modal.jsx";
+
 
 import Design1 from "../assets/img/barber-brush.gif";
-import { categories, statistics,services } from "../data.js";
+import {categories, statistics, services} from "../data.js";
 import CountUp from "react-countup";
-import { Link } from "react-router-dom";
-import { RiLinkedinFill, RiYoutubeFill } from "react-icons/ri";
-import {AiOutlineInstagram, AiOutlineCheck } from "react-icons/ai";
+import {Link} from "react-router-dom";
+import {RiLinkedinFill, RiYoutubeFill} from "react-icons/ri";
+import {AiOutlineInstagram, AiOutlineCheck} from "react-icons/ai";
 import heroThree from "../assets/img/hero-3.jpg";
 import heroOne from "../assets/img/hero-1.jpg";
 import heroTwo from "../assets/img/hero-2.jpg";
-import {  Pricing, SectionHeader, Testimonials } from "../components/index.js";
+import {Pricing, SectionHeader, Testimonials} from "../components/index.js";
 import Design3 from "../assets/img/razor.gif";
 import Design2 from "../assets/img/shaver.gif";
-import { BallTriangle, Grid } from "react-loader-spinner";
+import {BallTriangle, Grid} from "react-loader-spinner";
 import Service from "../assets/img/service.JPG";
 import Card from "../assets/img/card.png";
 import Vid from "../assets/img/video-icon.png";
 import Design4 from "../assets/img/pie-chart.gif";
 import axios from "axios";
+import {useEffect, useState} from "react"
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() =>setIsOpen(true), 2000)
+  }, []);
+
   return (
     <main className='mt-10'>
       {/* Hero section */}
       <section className='hero-section pt-[2px] 2xl:h-[800px] relative '>
         {/* First Aesthetic  */}
         <div className='hidden lg:block absolute top-[40%] left-[40%] h-[100px] w-[100px] '>
-          <img src={Design1} alt='' className='w-full block z-10' />
+          <img src={Design1} alt='' className='w-full block z-10'/>
         </div>
         <div className='container'>
           <div className='flex flex-col lg:flex-row gap-[10px] items-center justify-between '>
@@ -68,12 +63,14 @@ export default function Home() {
               </div>
 
               {/* Counter  */}
-              <div className='mt-[30px] flex flex-col items-center sm:flex-row sm:justify-center lg:justify-start lg:mt-[70px] lg:flex-row lg:items-center gap-5 lg:gap-[30px] '>
+              <div
+                className='mt-[30px] flex flex-col items-center sm:flex-row sm:justify-center lg:justify-start lg:mt-[70px] lg:flex-row lg:items-center gap-5 lg:gap-[30px] '>
                 {statistics.map((stats) => {
-                  const { value, label, suffix } = stats;
+                  const {value, label, suffix} = stats;
                   return (
                     <div key={value} data-aos='fade-up' data-aos-delay='700'>
-                      <h2 className='text-[36px] leading-[56px] lg:text-[44px] lg:leading-[44px] font-[700] text-headingColor '>
+                      <h2
+                        className='text-[36px] leading-[56px] lg:text-[44px] lg:leading-[44px] font-[700] text-headingColor '>
                         <CountUp
                           start={0}
                           end={value}
@@ -96,19 +93,19 @@ export default function Home() {
                   href='https://www.youtube.com/@universoulbarbers'
                   target='_blank'
                   className='w-9 h-9 border border-solid rounded-full flex items-center justify-center group hover:bg-primaryColor hover:border-none '>
-                  <RiYoutubeFill className='group-hover:text-white w-4 h-5' />
+                  <RiYoutubeFill className='group-hover:text-white w-4 h-5'/>
                 </a>
                 <a
                   href='https://www.linkedin.com/company/universoulbarbers'
                   target='_blank'
                   className='w-9 h-9 border border-solid rounded-full flex items-center justify-center group hover:bg-primaryColor hover:border-none '>
-                  <RiLinkedinFill className='group-hover:text-white w-4 h-5' />
+                  <RiLinkedinFill className='group-hover:text-white w-4 h-5'/>
                 </a>
                 <a
                   href='https://www.instagram.com/universoulbarbers'
                   target='_blank'
                   className='w-9 h-9 border border-solid rounded-full flex items-center justify-center group hover:bg-primaryColor hover:border-none '>
-                  <AiOutlineInstagram className='group-hover:text-white w-4 h-5' />
+                  <AiOutlineInstagram className='group-hover:text-white w-4 h-5'/>
                 </a>
               </div>
             </div>
@@ -147,14 +144,15 @@ export default function Home() {
         </div>
       </section>
 
-      <SectionHeader title='Services' subTitle='Our Service' />
+      <SectionHeader title='Services' subTitle='Our Service'/>
 
-      <div className='container items-center justify-center relative w-[1100px] flex gap-5 flex-col mx-auto mt-[60px]lg:flex-row md:flex-row'>
+      <div
+        className='container items-center justify-center relative w-[1100px] flex gap-5 flex-col mx-auto mt-[60px]lg:flex-row md:flex-row'>
         <div className='absolute top-[25%] left-[43%] h-[100px] w-[100px]'>
-          <img src={Design3} alt='' className='w-full block' />
+          <img src={Design3} alt='' className='w-full block'/>
         </div>
         <div className='absolute -top-[10%] -right-[7%] h-[100px] w-[100px]'>
-          <img src={Design2} alt='' className='w-full block' />
+          <img src={Design2} alt='' className='w-full block'/>
         </div>
         <div className='absolute -bottom-[10%] -right-[0%] h-[100px] w-[100px] z-10 '>
           <Grid
@@ -202,7 +200,7 @@ export default function Home() {
                 <span className='text-para'>10:00 AM</span>
               </p>
               <div className='w-6 h-4 p-1 flex items-center rounded-sm bg-green-300'>
-                <img src={Vid} alt='icon' />
+                <img src={Vid} alt='icon'/>
               </div>
             </div>
             <div className='w-20 mt-2 p-[3px] rounded-full bg-yellow-100'>
@@ -224,25 +222,25 @@ export default function Home() {
             First Ever Barbering Contracting Platform Has Arrived!
           </h1>
           {
-           
-             <ul className='mt-2 space-y-4  ' 
-              data-aos='fade-up'
-              data-aos-duration='300'
-              data-aos-delay='400'>
-                  {services.map((service, i) => {
-                    return (
-                      <li
-                        key={i}
-                        className='text-[14px] text-textColor leading-5 flex  '>
+
+            <ul className='mt-2 space-y-4  '
+                data-aos='fade-up'
+                data-aos-duration='300'
+                data-aos-delay='400'>
+              {services.map((service, i) => {
+                return (
+                  <li
+                    key={i}
+                    className='text-[14px] text-textColor leading-5 flex  '>
                         <span
                           className='h-8 w-8 bg-black text-white shrink-0 rounded-full flex items-center p-1 justify-center'>
-                          <AiOutlineCheck className='text-white' />
+                          <AiOutlineCheck className='text-white'/>
                         </span>
-                        <span className='ml-3'> {service}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
+                    <span className='ml-3'> {service}</span>
+                  </li>
+                );
+              })}
+            </ul>
           }
           <Link
             to='/my-store'
@@ -255,16 +253,17 @@ export default function Home() {
         </div>
       </div>
 
-      <SectionHeader title='Categories' subTitle='Registration Guide' />
+      <SectionHeader title='Categories' subTitle='Registration Guide'/>
 
-      <section className='max-w-[1100px] mx-auto rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-11 lg:gap-[30px] p-[30px]  '>
+      <section
+        className='max-w-[1100px] mx-auto rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-11 lg:gap-[30px] p-[30px]  '>
         {categories.map((category, index) => {
-          const { img, title, content, btnText, link } = category;
+          const {img, title, content, btnText, link} = category;
           return (
             <div
               className='flex items-center flex-col p-8 justify-center w-full bg-white rounded-lg shadow-2xl '
               key={index}>
-              <img src={img} width={50} height={40} alt={title} />
+              <img src={img} width={50} height={40} alt={title}/>
               <h2 className='text-center text-[26px] md:text-[30px] lg:text-[30px] font-bold my-5 '>
                 {title}
               </h2>
@@ -293,22 +292,24 @@ export default function Home() {
       </section>
 
       <section className='container mx-auto items-center justify-center'>
-        <Testimonials />
+        <Testimonials/>
       </section>
 
       <section className='container mx-auto items-center justify-center relative'>
         <div className='hidden lg:block absolute top-[20%] -right-[0%] h-[100px] w-[100px]'>
-          <img src={Design4} alt='' className='w-full block' />
+          <img src={Design4} alt='' className='w-full block'/>
         </div>
-        <Pricing />
+        <Pricing/>
       </section>
 
       {/* CTA Section */}
       <div className='bg-white'>
-        <div className='mx-auto max-w-4xl py-16 px-4 sm:px-6 sm:py-24 lg:flex lg:max-w-7xl lg:items-center lg:justify-between lg:px-8'>
+        <div
+          className='mx-auto max-w-4xl py-16 px-4 sm:px-6 sm:py-24 lg:flex lg:max-w-7xl lg:items-center lg:justify-between lg:px-8'>
           <h2 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
             <span className='block'>Ready to get started?</span>
-            <span className='-mb-1 block bg-gradient-to-r from-primaryColor to-black bg-clip-text pb-1 text-transparent'>
+            <span
+              className='-mb-1 block bg-gradient-to-r from-primaryColor to-black bg-clip-text pb-1 text-transparent'>
               Get in touch or create an account.
             </span>
           </h2>
@@ -327,6 +328,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Modal/>
     </main>
   );
 }

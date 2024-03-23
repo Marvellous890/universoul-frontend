@@ -3,6 +3,7 @@ import { ImageProvider } from "../context/ImageContext";
 
 
 const MasterLayout = ({component}) => {
+
   return (
     <ImageProvider>
       <Header/>
