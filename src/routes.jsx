@@ -25,7 +25,8 @@ import {
   Messages,
   MessageDetails,
   EntityPage,
-  ThreadPage
+  ThreadPage,
+  HelpUsEmpower,
 } from './pages';
 import BlogContent from './pages/BlogContent';
 import Forum from './pages/Forum';
@@ -197,6 +198,10 @@ export default [
   {
     path: '/success-submit',
     component: <EmailActivation />,
+  },
+  {
+    path: '/help-us-empower',
+    component: <HelpUsEmpower />,
   },
   {
     path: '/messages',

@@ -1,12 +1,11 @@
 import { Fragment, useState } from 'react'
 import {
     CalendarIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
     EllipsisHorizontalIcon,
     MapPinIcon,
 } from '@heroicons/react/20/solid'
 import { Menu, Transition } from '@headlessui/react'
+import NoApp from '../assets/img/empty-inbox.jpg'
 
 const meetings = [
     {
@@ -157,6 +156,7 @@ const days = [
 ]
 
 import { classNames } from '../utils'
+import NoBlog from "../assets/img/write-content.svg";
 
 export default function () {
     return (
@@ -243,6 +243,11 @@ export default function () {
                         </li>
                     ))}
                 </ol>
+                {!meetings.length && <div>
+                    <img src={NoApp} alt="No blog" className="mx-auto w-30 md:w-48"/>
+                    <p className="text-center text-lg font-medium text-gray-500">No appointment available at the
+                        moment</p>
+                </div>}
             </div>
         </div>
     )
@@ -250,7 +255,7 @@ export default function () {
 
 export const NotificationList = () => {
     const [notifications, setNotifications] = useState([
-        { id: 1, sender: 'John Doe', message: 'Hello! How are you?', read: false },
+        {id: 1, sender: 'John Doe', message: 'Hello! How are you?', read: false },
         { id: 2, sender: 'Jane Smith', message: 'Meeting at 3 PM', read: true },
         { id: 3, sender: 'Sam Brown', message: 'Don\'t forget to submit the report.', read: false },
     ]);

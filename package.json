@@ -24,6 +24,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "aos": "^2.3.4",
     "axios": "^1.6.2",
+    "clsx": "^2.1.0",
     "flowbite-typography": "^1.0.3",
     "fs-extra": "^11.1.1",
     "moment": "^2.30.1",

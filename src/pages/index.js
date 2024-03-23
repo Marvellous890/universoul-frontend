@@ -27,7 +27,7 @@ import AccountActivated from './ThankYou/AccountActivated.jsx'
 import EmailActivation from "./ThankYou/EmailActivation.jsx";
 import BookingThankYou from './ThankYou/BookingThankYou.jsx'
 import ThreadPage from './ThreadPage.jsx'
-
+import HelpUsEmpower from './HelpUsEmpower.jsx'
 
 export {
   Home,
@@ -58,5 +58,6 @@ export {
   EmailActivation,
   AccountActivated,
   SubscriptionThankYou,
-  ThreadPage
+  ThreadPage,
+  HelpUsEmpower
 }
