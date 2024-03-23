@@ -1,5 +1,4 @@
 import React from 'react';
-import { CartItem } from './components';
 import {
   Home,
   Blog,
@@ -46,9 +45,9 @@ import OwnerViewUser from './pages/OwnerViewUser';
 import OwnerNotification from './pages/OwnerNotification';
 import OwnerNotificationView from './pages/OwnerNotificationView';
 import OwnerDashboard from './pages/OwnerDashboard';
-import OwnerBlog from './pages/OwnerBlog';
 import Payment from './pages/Payment';
 import ServiceDetails from "./pages/ServiceDetails.jsx";
+import Donate from "./pages/Donate.jsx";
 
 export default [
   {
@@ -207,6 +206,10 @@ export default [
   {
     path: '/empowerment-details',
     component: <ServiceDetails />,
+  },
+  {
+    path: '/donate',
+    component: <Donate />,
   },
   {
     path: '/messages',

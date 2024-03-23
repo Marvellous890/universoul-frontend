@@ -96,35 +96,6 @@ export default function HelpUsEmpower() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold text-gray-800">Help Us Empower</h2>
-        <p className="text-lg text-gray-600 mt-4">We are looking for volunteers to help us empower the community. If you
-          are interested in helping us, please fill out the form below and we will get back to you as soon as
-          possible.</p>
-        <form className="mt-8">
-          <div className="flex flex-wrap -mx-4">
-            <div className="md:w-1/2 w-full px-4">
-              <input type="text" placeholder="First Name" className="border border-gray-300 p-3 w-full mt-4"/>
-            </div>
-            <div className="md:w-1/2 w-full px-4">
-              <input type="text" placeholder="Last Name" className="border border-gray-300 p-3 w-full mt-4"/>
-            </div>
-            <div className="md:w-1/2 w-full px-4">
-              <input type="email" placeholder="Email" className="border border-gray-300 p-3 w-full mt-4"/>
-            </div>
-            <div className="md:w-1/2 w-full px-4">
-              <input type="tel" placeholder="Phone" className="border border-gray-300 p-3 w-full mt-4"/>
-            </div>
-            <div className="w-full px-4">
-              <textarea placeholder="Message" className="border border-gray-300 p-3 w-full mt-4"></textarea>
-            </div>
-            <div className="w-full px-4 mt-4">
-              <button className="bg-blue-500 text-white p-3 w-full">Send Message</button>
-            </div>
-          </div>
-        </form>
-      </section>
-
     </div>
   )
 }
@@ -134,13 +105,17 @@ function ServicesGrid({text, img, reverse = false, heading}) {
     <div className="flex flex-wrap">
       <div className={clsx(" md:w-1/2 w-full px-4", {"order-1": reverse === true})}>
         <h2 className="text-2xl font-bold text-gray-800">{heading}</h2>
-        <p className="text-lg text-gray-600 mt-4">{text}</p>
+        <p className="text-lg text-gray-600 my-4">
+          {text}
+          <a
+            href="/empowerment-details"
+            className="text-blue-500"> Learn more</a></p>
         <div>
-          {/*  invest link as a button */}
-          <button
-            className="bg-primaryDark px-2 py-1 text-white rounded mt-4">
+          <a
+            className="bg-primaryDark px-2 py-1 text-white rounded"
+            href="/donate">
             Invest now
-          </button>
+          </a>
         </div>
       </div>
       <div className="md:w-1/2 w-full px-4">
