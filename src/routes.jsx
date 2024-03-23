@@ -48,6 +48,7 @@ import OwnerNotificationView from './pages/OwnerNotificationView';
 import OwnerDashboard from './pages/OwnerDashboard';
 import OwnerBlog from './pages/OwnerBlog';
 import Payment from './pages/Payment';
+import ServiceDetails from "./pages/ServiceDetails.jsx";
 
 export default [
   {
@@ -202,6 +203,10 @@ export default [
   {
     path: '/help-us-empower',
     component: <HelpUsEmpower />,
+  },
+  {
+    path: '/empowerment-details',
+    component: <ServiceDetails />,
   },
   {
     path: '/messages',
