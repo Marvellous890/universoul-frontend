@@ -3,6 +3,7 @@ import equipment from '../assets/img/equipment.jpg'
 import transportation from '../assets/img/transportation.jpg'
 import education from '../assets/img/education.webp'
 import kit from '../assets/img/kit.webp'
+import merchandise from '../assets/img/merchandise.jpg'
 
 import {clsx} from "clsx";
 
@@ -30,7 +31,7 @@ const services = [
   {
     heading: 'Merchandise',
     text: "Proceeds from merchandise sales go back into our community initiatives, furthering our impact and reach.",
-    img: education
+    img: merchandise
   },
   {
     heading: 'Barbers',
@@ -66,7 +67,7 @@ export default function HelpUsEmpower() {
         <p className="text-3xl text-center">What Your Support Does</p>
       </section>
 
-      <section id="what-it-does" className="flex flex-col gap-20">
+      <section id="what-it-does" className="flex flex-col gap-32">
         {services.map((service, index) => (
           <ServicesGrid
             key={index}
