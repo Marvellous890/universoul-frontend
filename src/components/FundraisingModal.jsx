@@ -6,13 +6,24 @@ import "react-toastify/dist/ReactToastify.css";
 
 const FundraisingModal = ({ setModalDisplay }) => {
   const [campaignName, setCampaignName] = useState("");
-  const [goalAmount, setGoalAmount] = useState();
+  const [goalAmount, setGoalAmount] = useState('');
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [inputType, setInputType] = useState("text");
 
   const token = getCookie("token");
+
+  
+
+   const handleChange = (event) => {
+     const inputValue = event.target.value;
+     const numericValue = parseInt(inputValue.replace(/\D/g, ""), 10); // Remove non-numeric characters and 
+     setGoalAmount(numericValue);
+
+     
+     // Use numericValue for further processing
+   };
 
   const handleStartDateChange = (e) => {
     const newStartDate = e.target.value;
@@ -111,11 +122,11 @@ const FundraisingModal = ({ setModalDisplay }) => {
             />
 
             <input
-              type='number'
+              type='text'
               name='goalAmount'
               required
-              value={goalAmount}
-              onChange={(e) => setGoalAmount(e.target.value)}
+              value={goalAmount.toLocaleString()}
+              onChange={handleChange}
               placeholder='Goal Amount'
               style={{ border: "1px solid rgba(224, 229, 237, 1)" }}
               className='w-full mb-4 py-3 rounded-xl'

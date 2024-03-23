@@ -19,6 +19,7 @@ const BarberProfile = () => {
   const [state, setState] = useState('')
   const [county, setCounty] = useState('')
   const [city, setCity] = useState('')
+  const [address, setAddress] = useState('')
   const [linkedln, setLinkedln] = useState('')
   const [youTube, setYouTube] = useState('')
   const [loading, setLoading] = useState(false);
@@ -31,10 +32,12 @@ const BarberProfile = () => {
 
   useEffect(() => {
      if(user) {
+      console.log(user);
     setFirstname(user.firstName || '');
     setLastname(user.lastName || '');
     setUserName(user.userName || '')
     setEmail(user.email || '');
+    setAddress(user.address || '')
     setBio(user.bio || '');
     setCity(user.city || '')
     setCounty(user.county || '')
@@ -53,19 +56,20 @@ const BarberProfile = () => {
     setLoading(true);
     try {
       const updateData = {
-        firstName: firstname,
-        lastName: lastname,
-        email: email,
-        userName: userName,
-        phoneNumber: phoneNumber,
-        website: website,
-        bio: bio,
-        linkedln: linkedln,
-        youtube: youTube,
-        state: state,
-        city: city,
-        county: county,
-        instagram: instagram
+         firstname,
+        lastname,
+        email,
+       userName,
+        phoneNumber,
+        website,
+        bio,
+        linkedln,
+       youTube,
+        state,
+        city,
+        county,
+        address,
+       instagram
       };
 
       const response = await axios.put(
@@ -194,6 +198,15 @@ const BarberProfile = () => {
           id='website'
           type='text'
           value={website}
+        />
+      </div>
+      <div className='flex w-[90%]'>
+        <Input
+          label='Your Address'
+          onChange={(e) => setAddress(e.target.value)}
+          id='address'
+          type='text'
+          value={address}
         />
       </div>
       <div className='flex w-[90%]'>

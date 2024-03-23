@@ -120,6 +120,7 @@ export default function UserPanel({ fragment, owner = false }) {
 
   function logout() {
     deleteAllCookies();
+    localStorage.clear()
     navigate('/login');
   }
 
@@ -440,7 +441,7 @@ function _CommonSidebarNav({ extra }) {
      { name: 'Customers', href: '/customers', icon: UserGroupIcon },
      
      {
-       name: "Inventory & Shop",
+       name: "Build Your Business",
        href: "/my-store",
        icon: BuildingStorefrontIcon,
       },

@@ -50,7 +50,7 @@ export const quickLinks02 = [
   },
   {
     path:  "https://uvsbarbercharity.com" ,
-    display: "Our Charity Page",
+    display: "Our Partner Charity",
   }
 
 ];
@@ -141,7 +141,7 @@ export const categories = [
     content:
       "We have a marketplace for all members to showcase barbing equipment with a link to their social media accounts. This service is absolutely free!",
     btnText: "Go to Marketplace",
-    link: "/marketplace"
+    link: "/marketplace",
   },
   {
     img: catImg02,
@@ -149,15 +149,15 @@ export const categories = [
     content:
       "Comprehensive list of all barbers can be accessed from here.If you a need a barber to book solo or get a barber for your organization",
     btnText: "View All Babers",
-    link: '/barbers'
+    link: "/barbers",
   },
   {
     img: catImg03,
     title: "Go To Forum",
     content:
-      "This is where all barbers around the world connect to discuss issues and make connection. THe forum is moderated to ensure a safe space for all voices",
+      "Meet your fellow Barbers and Service providers who are gathering around the world, to discuss issues, tactics and how we can make the foundation of this platform better for everyone! ",
     btnText: "Go to Forum",
-    link: '/forum'
+    link: "/forum",
   },
   // {
   //   img: catImg04,
@@ -215,6 +215,32 @@ export const pricing = [
     recommended: false,
   },
 ];
+
+
+export const services =  [
+    'Mobile Haircuts / Transportation ',
+
+'Custom Product Creation',
+
+'Instant Clients', 
+
+'Crowdfunding creation',
+
+'Marketplace ',
+
+'Community Form',
+
+'Backend Analytics', 
+
+'Booking Management', 
+
+'Priority Customer Support ',
+
+'Weekly Improvement Updates From our Communities & Teams',
+
+'Live community and Team Chats'
+  ]
+
 
 export const fundRaisingProgress = [
         {

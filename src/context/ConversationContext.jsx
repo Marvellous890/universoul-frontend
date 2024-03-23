@@ -1,9 +1,10 @@
 import { createContext, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getCookie } from "../utils";
+import { io } from 'socket.io-client'
 
 const token = getCookie("token");
-console.log(token);
+
 export const ConversationContext = createContext();
 const url = "https://universoul.onrender.com/api/v1/customerservice/oneUser";
 
@@ -13,6 +14,36 @@ const ConversationContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [userAuth, setUserAuth] = useState({});
   const [singleMessage, setSingleMessage] = useState([]);
+  const [socket, setSocket] = useState(null)
+  const [onlineUsers, setOnlineUsers] = useState([])
+
+  console.log(onlineUsers);
+
+  useEffect(() => {
+    
+   const newSocket = io('https://uvs-socket-server.onrender.com')
+   setSocket(newSocket)
+
+   return ()=>{
+    newSocket. disconnect()
+   }
+  }, [userAuth])
+
+  // socket for online users 
+  useEffect(() => {
+   if(userAuth._id && socket){
+     if (socket === null) return;
+     socket.emit("addNewUser", userAuth?._id);
+     socket.on('getOnlineUsers', (res) => {
+        setOnlineUsers(res)
+     })
+     return ()=>{
+      socket.off('getOnlineUsers')
+     }
+   }
+  }, [socket, userAuth._id])
+  
+  
 
   useEffect(() => {
     // get user auth
@@ -88,7 +119,7 @@ const ConversationContextProvider = ({ children }) => {
     };
 
     getAllChats();
-  }, [userAuth]);
+  }, [singleMessage]);
 
   // function to clear single message 
   const clearMessage = useCallback(
@@ -97,6 +128,46 @@ const ConversationContextProvider = ({ children }) => {
     },
     [],
   )
+
+  // function to send message using socket 
+  useEffect(() => {
+    if(userAuth._id){
+      if (socket === null) return;
+      let recipientId=''
+      if (singleMessage.length > 0) {
+        const findRecipient = (array, oppositeId) => {
+          for (const obj of array) {
+            if (obj.info._id !== oppositeId) {
+              return obj.info._id;
+            }
+          }
+          return null;
+        };
+        recipientId = findRecipient(singleMessage, userAuth._id)
+      }
+      socket.emit("sendMessage", {singleMessage, recipientId});
+       return () => {
+         socket.off("sendMessage");
+       };
+    }
+
+   
+   
+  }, [singleMessage])
+  
+
+  // recieve message 
+  useEffect(() => {
+    if (socket === null) return
+    socket.on('getMessage', (res) => {
+        setSingleMessage(res)
+    } )
+    return ()=> {
+      socket.off('getMessage')
+    }
+    
+  }, [socket, singleMessage])
+  
   
 
   //  function to fetch single message
@@ -118,6 +189,7 @@ const ConversationContextProvider = ({ children }) => {
           // User one's ID matches your user ID
           newData = data.messages.map((messageObj) => ({
             message: messageObj.message,
+            info: messageObj.sender,
             tag:
               messageObj.sender._id === userAuth._id ? "sender" : "recipient",
             time: messageObj.createdAt,
@@ -125,11 +197,12 @@ const ConversationContextProvider = ({ children }) => {
         } else {
           newData = data.messages.map((messageObj) => ({
             message: messageObj.message,
+            info: messageObj.sender,
             tag:
               messageObj.sender._id === userAuth._id ? "recipient" : "sender",
             time: messageObj.createdAt,
           }));
-        }
+  }
 
         if (!singleMessage.length || JSON.stringify(singleMessage) !== JSON.stringify(newData)) {
           setSingleMessage(newData)
@@ -166,6 +239,7 @@ const ConversationContextProvider = ({ children }) => {
           // User one's ID matches your user ID
           newData = data.messages.map((messageObj) => ({
             message: messageObj.message,
+            info: messageObj.sender,
             tag:
               messageObj.sender._id === userAuth._id ? "sender" : "recipient",
             time: messageObj.createdAt,
@@ -173,6 +247,7 @@ const ConversationContextProvider = ({ children }) => {
         } else {
           newData = data.messages.map((messageObj) => ({
             message: messageObj.message,
+            info: messageObj.sender,
             tag:
               messageObj.sender._id === userAuth._id ? "recipient" : "sender",
             time: messageObj.createdAt,
@@ -207,7 +282,8 @@ const ConversationContextProvider = ({ children }) => {
         postSingleMessage,
         clearMessage,
         singleMessage,
-      }}>
+        onlineUsers
+       }} >
       {children}
     </ConversationContext.Provider>
   );

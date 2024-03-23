@@ -4,7 +4,7 @@ import baberImg from "../assets/img/about-1.jpg";
 import star from "../assets/img/Star.png";
 import BarbersAbout from './BarbersAbout'
 import Feedback from './Feedback'
-import { AiOutlineInstagram } from "react-icons/ai";
+import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
 import { RiLinkedinFill, RiYoutubeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
 import { CiGlobe } from "react-icons/ci";
@@ -67,23 +67,22 @@ import { Link } from "react-router-dom";
                   {data && data.owner ? data.shop_name : "Loading..."}
                 </h3>
 
-                <div className='flex items-center gap-2 '>
-                  <span className='flex items-center text-[14px] leading-5 gap-[6px] lg:text-[16px] lg:leading-7 font-semibold text-headingColor '>
-                    <img src={star} alt='' /> 4.6
-                  </span>
-                  <span
-                    className='
-                 text-[14px] leading-5 lg:text-[16px] lg:leading-7 font-[400] text-textColor
-                 '>
-                    (272)
-                  </span>
-                </div>
+               
                 {/* Location */}
                 <div className='flex gap-2 items-center my-2 '>
                   <IoLocationOutline className='w-6 h-6 mt-2' />
                   <p className='text-para text-[14px] leading-6 md:text-[15px] lg:max-w-[300px] '>
                     {data && data.owner
                       ? `${data.owner.state}, ${data.owner.county}`
+                      : "Unavailable"}
+                  </p>
+                </div>
+                {/* Address */}
+                <div className='flex gap-2 items-center my-2 '>
+                  <AiOutlineHome className='w-6 h-6 mt-2' />
+                  <p className='text-para text-[14px] leading-6 md:text-[15px] lg:max-w-[300px] '>
+                    {data && data.owner
+                      ? `${data.owner.address}`
                       : "Unavailable"}
                   </p>
                 </div>

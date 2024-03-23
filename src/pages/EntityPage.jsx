@@ -7,7 +7,7 @@ const EntityPage = () => {
       <img
         src={img}
         alt='Placeholder'
-        className=' w-[35%] object-cover'
+        className=' w-[75%] md:w-[40%] lg:w-[35%] object-cover'
       />
       <p className='mt-4 text-center text-gray-700'>
         SInce you identify as an entity, we give special service to your type. Click on the button below to get started. We are committed to getting you the best service for your and your peers!

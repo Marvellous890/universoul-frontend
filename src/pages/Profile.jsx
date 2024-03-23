@@ -49,6 +49,7 @@ const Profile = () => {
 
   function logout() {
     deleteAllCookies();
+    localStorage.clear()
     navigate("/login");
   }
 
