@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from "react";
 import axios from 'axios';
-import {buildApiEndpoint, getCookie, isGuest, isLoggedIn} from "../utils"
+import {buildApiEndpoint, deleteCookie, getCookie, isGuest, isLoggedIn} from "../utils"
 import logo from "../assets/img/Logo.png";
 import textLogo from "../assets/img/Universoul.png";
 import { Popover, Transition, Menu } from "@headlessui/react";
@@ -22,6 +22,7 @@ import ProfileImage from "./ProfileImage";
 import { CartContext } from "../context/CartContext";
 import { useContext, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import Button from "./Button.jsx";
 
 const token = getCookie('token');
 
@@ -292,7 +293,16 @@ const Header = () => {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-              ) : !isGuest() && (
+              ) : isGuest() ? (
+                <button
+                  className='text-warm-gray-900 hover:text-warm-gray-500 font-medium bg-gray-200 px-4 py-2 rounded-lg'
+                  onClick={() => {
+                    deleteCookie('guest')
+                    window.location.reload()
+                  }}>
+                  Logout as guest
+                </button>
+              ) : (
                 <>
                   <Link
                     to='/login'

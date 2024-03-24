@@ -8,6 +8,7 @@ import {clsx} from "clsx";
 import Modal from "../components/Modal.jsx";
 import {useEffect, useState} from "react";
 import {isGuest} from "../utils.jsx";
+import {Link} from "react-router-dom";
 
 const services = [
   {
@@ -51,7 +52,7 @@ const ourGoals = [
 
 export default function HelpUsEmpower() {
 
-  const [open , setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -61,7 +62,7 @@ export default function HelpUsEmpower() {
 
   return (
     <div className="md:py-12 py-8">
-      {open && <Modal />}
+      {open && <Modal/>}
       <section className="">
         <div className="container mx-auto px-4">
           <h1
@@ -118,15 +119,17 @@ function ServicesGrid({text, img, reverse = false, heading}) {
         <h2 className="text-2xl font-bold text-gray-800">{heading}</h2>
         <p className="text-lg text-gray-600 my-4">
           {text}
-          <a
-            href="/empowerment-details"
-            className="text-blue-500"> Learn more</a></p>
+          <Link
+            to="/empowerment-details"
+            className="text-blue-500"> Learn more
+          </Link>
+        </p>
         <div>
-          <a
+          <Link
             className="bg-primaryDark px-4 py-2 text-white rounded"
-            href="/donate">
+            to="/donate">
             Invest now
-          </a>
+          </Link>
         </div>
       </div>
       <div className="md:w-1/2 w-full px-4">
