@@ -22,14 +22,11 @@ import axios from "axios";
 import {useEffect, useState} from "react"
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() =>setIsOpen(true), 2000)
-  }, []);
 
   return (
     <main className='mt-10'>
+      <Modal/>
+
       {/* Hero section */}
       <section className='hero-section pt-[2px] 2xl:h-[800px] relative '>
         {/* First Aesthetic  */}
@@ -328,8 +325,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <Modal/>
     </main>
   );
 }
