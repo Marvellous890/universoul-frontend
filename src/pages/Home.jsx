@@ -1,6 +1,3 @@
-import Modal from "../components/Modal.jsx";
-
-
 import Design1 from "../assets/img/barber-brush.gif";
 import {categories, statistics, services} from "../data.js";
 import CountUp from "react-countup";
@@ -25,8 +22,6 @@ export default function Home() {
 
   return (
     <main className='mt-10'>
-      <Modal/>
-
       {/* Hero section */}
       <section className='hero-section pt-[2px] 2xl:h-[800px] relative '>
         {/* First Aesthetic  */}

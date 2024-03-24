@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from "react";
 import axios from 'axios';
-import { buildApiEndpoint, getCookie, isLoggedIn } from "../utils"
+import {buildApiEndpoint, getCookie, isGuest, isLoggedIn} from "../utils"
 import logo from "../assets/img/Logo.png";
 import textLogo from "../assets/img/Universoul.png";
 import { Popover, Transition, Menu } from "@headlessui/react";
@@ -198,21 +198,21 @@ const Header = () => {
                 {cart?.length}
               </Link>
               {isLoggedIn() ? (
-                // <Link to='/dashboard' className='group block flex-shrink-0'>
-                //   <div className='flex items-center'>
-                //     <div>
-                //       <ProfileImage />
-                //     </div>
-                //     <div className='ml-3'>
-                //       <p className='text-sm font-medium text-gray-700 group-hover:text-gray-900'>
-                //         {user.userName}
-                //       </p>
-                //       <p className='text-xs font-medium text-gray-500 group-hover:text-gray-700'>
-                //         View dashboard
-                //       </p>
-                //     </div>
-                //   </div>
-                // </Link>
+                /*<Link to='/dashboard' className='group block flex-shrink-0'>
+                  <div className='flex items-center'>
+                    <div>
+                      <ProfileImage />
+                    </div>
+                    <div className='ml-3'>
+                      <p className='text-sm font-medium text-gray-700 group-hover:text-gray-900'>
+                        {user.userName}
+                      </p>
+                      <p className='text-xs font-medium text-gray-500 group-hover:text-gray-700'>
+                        View dashboard
+                      </p>
+                    </div>
+                  </div>
+                </Link>*/
                 <Menu as='div' className='relative ml-3'>
                   <div>
                     <Menu.Button className='flex items-center max-w-xs text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-warm-gray-500 focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50'>
@@ -292,7 +292,7 @@ const Header = () => {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-              ) : (
+              ) : !isGuest() && (
                 <>
                   <Link
                     to='/login'

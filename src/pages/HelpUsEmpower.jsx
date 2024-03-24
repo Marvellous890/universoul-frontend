@@ -4,8 +4,10 @@ import transportation from '../assets/img/transportation.jpg'
 import education from '../assets/img/education.webp'
 import kit from '../assets/img/kit.webp'
 import merchandise from '../assets/img/merchandise.jpg'
-
 import {clsx} from "clsx";
+import Modal from "../components/Modal.jsx";
+import {useEffect, useState} from "react";
+import {isGuest} from "../utils.jsx";
 
 const services = [
   {
@@ -49,8 +51,17 @@ const ourGoals = [
 
 export default function HelpUsEmpower() {
 
+  const [open , setOpen] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!isGuest()) setOpen(true)
+    }, 1000);
+  }, []);
+
   return (
     <div className="md:py-12 py-8">
+      {open && <Modal />}
       <section className="">
         <div className="container mx-auto px-4">
           <h1
@@ -112,7 +123,7 @@ function ServicesGrid({text, img, reverse = false, heading}) {
             className="text-blue-500"> Learn more</a></p>
         <div>
           <a
-            className="bg-primaryDark px-2 py-1 text-white rounded"
+            className="bg-primaryDark px-4 py-2 text-white rounded"
             href="/donate">
             Invest now
           </a>

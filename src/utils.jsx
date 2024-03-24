@@ -74,6 +74,10 @@ export function isLoggedIn() {
     }
 }
 
+export function isGuest() {
+    return getCookie('guest') === 'true';
+}
+
 export function isOwner() {
     let isOwner = false;
     try {
