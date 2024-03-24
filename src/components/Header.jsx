@@ -34,7 +34,7 @@ const Header = () => {
     deleteAllCookies();
     
     localStorage.clear()
-    navigate("/login");
+    window.location = "/login";
   }
   const { itemCount } = useContext(CartContext);
   const userCookie = getCookie("user");

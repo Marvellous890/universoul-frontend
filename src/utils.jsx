@@ -46,7 +46,7 @@ export function buildApiEndpoint(path, token = false) {
     if (token) {
         string += '?token=' + getCookie('token');
     }
-    console.log(token);
+    // console.log(token);
     return string;
 }
 
