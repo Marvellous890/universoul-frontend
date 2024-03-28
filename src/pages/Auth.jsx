@@ -245,7 +245,7 @@ export default function Auth({ signup = false }) {
               className='flex flex-col w-full gap-5'
               data-aos='fade-right'
               data-aos-duration='1200'>
-              <div className='flex flex-col gap-5 lg:gap-1 lg:flex-row items-center flex-col gap-4 lg:gap-0 md:gap-0 lg:flex-row md:flex-row justify-between w-full'>
+              <div className='flex flex-col gap-5 lg:gap-1 lg:flex-row items-center  md:gap-0 md:flex-row justify-between w-full'>
                 <div className='flex w-[100%] md:w-full lg:w-1/2'>
                   <Input
                     label='First name'

@@ -83,11 +83,12 @@ export default function UserPanel({ fragment, owner = false }) {
   const navigate = useNavigate();
 
   const user = JSON.parse(getCookie('user'));
+  console.log(user);
 
   if (!user) window.location = "/login"
   return
 
-  let navigation = [
+  let navigation =  [
     {
       name: "Dashboard",
       href: user.role === "superadmin" ? "/owner" : "/dashboard",
@@ -118,9 +119,7 @@ export default function UserPanel({ fragment, owner = false }) {
     navigation = navigation.filter((nav) => nav.href !== "/appointments");
   }
 
-  useEffect(() => {
-
-  }, []);
+ 
 
   function logout() {
     deleteAllCookies();
@@ -426,7 +425,6 @@ export default function UserPanel({ fragment, owner = false }) {
 }
 
 function _CommonSidebarNav({ extra }) {
-  const user = useContext(UserContext);
    const userm = JSON.parse(getCookie("user"));
    //fixed
    let navigation = [
@@ -571,7 +569,7 @@ function _CommonSidebarNav({ extra }) {
         aria-label="Sidebar"
       >
         <div className="px-2 space-y-1">
-          {user?.role === 'USER' || 'SHOP_OWNER'
+          {userm?.role === 'USER' || 'SHOP_OWNER'
             ? navigation.map((item) => (
                 // <div key={item.name} onClick={() => setSidebarOpen(false)}>
                 <Link
