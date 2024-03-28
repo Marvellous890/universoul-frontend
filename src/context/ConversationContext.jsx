@@ -17,7 +17,7 @@ const ConversationContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null)
   const [onlineUsers, setOnlineUsers] = useState([])
 
-  // console.log(onlineUsers);
+  console.log(onlineUsers);
 
   useEffect(() => {
     

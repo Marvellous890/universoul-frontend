@@ -35,6 +35,9 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { getCookie, isLoggedIn, deleteAllCookies, isOwner } from '../utils';
 
+ const user = JSON.parse(getCookie('user'));
+
+
 
 const ownerNav = [
   { name: 'Dashboard', href: '/owner', icon: HomeIcon },
@@ -82,13 +85,10 @@ export default function UserPanel({ fragment, owner = false }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
+  //update
+
   const user = JSON.parse(getCookie('user'));
-  console.log(user);
-
-  if (!user) window.location = "/login"
-  return
-
-  let navigation =  [
+  let navigation = [
     {
       name: "Dashboard",
       href: user.role === "superadmin" ? "/owner" : "/dashboard",
@@ -114,22 +114,14 @@ export default function UserPanel({ fragment, owner = false }) {
     // { name: 'Financial Management', href: '#', icon: BanknotesIcon },
     // { name: 'Reporting and Analytics', href: '#', icon: DocumentChartBarIcon },
   ];
-
   if (user.role === "superadmin") {
     navigation = navigation.filter((nav) => nav.href !== "/appointments");
   }
-
- 
 
   function logout() {
     deleteAllCookies();
     localStorage.clear()
     navigate('/login');
-  }
-
-
-  if (!isLoggedIn()) return <Navigate to="/login" />;
-
   return (
     <ImageProvider>
       <UserContext.Provider value={user}>
@@ -398,16 +390,15 @@ export default function UserPanel({ fragment, owner = false }) {
                       )}
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            to="/login"
+                          <button
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
+                              'block px-4 py-2 text-sm text-gray-700 w-full text-left'
                             )}
                             onClick={logout}
                           >
                             Logout
-                          </Link>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -637,28 +628,3 @@ function _CommonSidebarNav({ extra }) {
     </>
   );
 }
-
-// import { Tab } from '@headlessui/react'
-
-// function MyTabs() {
-//   return (
-//     <Tab.Group vertical={true}>
-//       <Tab.List>
-//         <Tab>Tab 1</Tab>
-//         <Tab>Tab 2</Tab>
-//         <Tab>Tab 3</Tab>
-//       </Tab.List>
-//       <TabPanels />
-//     </Tab.Group>
-//   )
-// }
-
-// function TabPanels() {
-//   return (
-//     <Tab.Panels>
-//       <Tab.Panel>Content 1</Tab.Panel>
-//       <Tab.Panel>Content 2</Tab.Panel>
-//       <Tab.Panel>Content 3</Tab.Panel>
-//     </Tab.Panels>
-//   )
-// }
