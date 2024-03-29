@@ -1,16 +1,17 @@
 import Input from "../components/Input";
-import { useState, useCallback, useEffect } from "react";
-import { Transition } from '@headlessui/react';
+import {useState, useCallback, useEffect} from "react";
+import {Transition} from '@headlessui/react';
 import formImg from "../assets/img/Placeholder.gif";
 import formImg2 from "../assets/img/Sign up.gif";
 import Notification from "../components/Notification";
-import { ImSpinner8 } from "react-icons/im";
-import { buildApiEndpoint, setCookie } from "../utils"
-import { useNavigate, Navigate } from "react-router-dom";
+import {ImSpinner8} from "react-icons/im";
+import {buildApiEndpoint, setCookie} from "../utils"
+import {useNavigate, Navigate} from "react-router-dom";
 import axios from "axios";
 import {UserGroupIcon, UserIcon} from "@heroicons/react/24/outline";
- 
-export default function Auth({ signup = false }) {
+import {FaEye, FaEyeSlash} from 'react-icons/fa';
+
+export default function Auth({signup = false}) {
   const [type, setType] = useState("true");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -20,17 +21,17 @@ export default function Auth({ signup = false }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // conditionals for sign in
-  const [variant, setVariant] = useState( signup ? "Register" : "Login");
+  const [variant, setVariant] = useState(signup ? "Register" : "Login");
 
   const [loading, setLoading] = useState(false);
-   const [isChecked, setIsChecked] = useState(false);
-     const [showFullPolicy, setShowFullPolicy] = useState(false);
-
+  const [isChecked, setIsChecked] = useState(false);
+  const [showFullPolicy, setShowFullPolicy] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
 // checkbox functionality
-   const handleCheckboxChange = () => {
-     setIsChecked(!isChecked);
-   };
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
 
 
   const [errorMessage, setErrorMessage] = useState({
@@ -39,11 +40,14 @@ export default function Auth({ signup = false }) {
     desc: "",
   }); // {type: "success", title: "Success!", desc: "You have successfully logged in. Redirecting..."}
 
-  const mockErrorMsg = { ...errorMessage, desc: "" };
+  const mockErrorMsg = {...errorMessage, desc: ""};
 
   const userRole = type === true ? 'USER' : 'Entity'
   const navigate = useNavigate();
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   useEffect(() => {
     if (errorMessage.desc) {
@@ -65,16 +69,13 @@ export default function Auth({ signup = false }) {
   };
 
 
-
-
-
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
     if (variant === "Login") {
       // handle login
       if (!email || !password) {
-        setErrorMessage({ ...errorMessage, desc: "Please fill in all fields" });
+        setErrorMessage({...errorMessage, desc: "Please fill in all fields"});
       } else if (password.length < 6) {
         setErrorMessage({
           ...errorMessage,
@@ -87,10 +88,10 @@ export default function Auth({ signup = false }) {
         axios
           .post(
             buildApiEndpoint("/users/login"),
-            { email, password },
+            {email, password},
             {
               withCredentials: true,
-              headers: { "Content-Type": "application/json" },
+              headers: {"Content-Type": "application/json"},
             }
           )
           .then((response) => {
@@ -112,7 +113,7 @@ export default function Auth({ signup = false }) {
               navigate("/dashboard");
             } else {
               const responseData = response.data;
-              setErrorMessage({ ...errorMessage, desc: responseData });
+              setErrorMessage({...errorMessage, desc: responseData});
             }
           })
           .catch((error) => {
@@ -137,7 +138,7 @@ export default function Auth({ signup = false }) {
         !phoneNumber ||
         !type
       ) {
-        setErrorMessage({ ...errorMessage, desc: "Please fill in all fields" });
+        setErrorMessage({...errorMessage, desc: "Please fill in all fields"});
       } else if (password.length < 6) {
         setErrorMessage({
           ...errorMessage,
@@ -158,7 +159,7 @@ export default function Auth({ signup = false }) {
               email: email,
               password: password,
               firstName: firstName,
-              lastName:  lastName,
+              lastName: lastName,
               userName: userName,
               phoneNumber: phoneNumber,
               role: userRole
@@ -166,7 +167,6 @@ export default function Auth({ signup = false }) {
             credentials: "include",
           });
 
-          
 
           setLoading(false);
 
@@ -180,12 +180,12 @@ export default function Auth({ signup = false }) {
             setPhoneNumber('')
             setType('')
 
-           
+
             setCookie("user", responseData);
             navigate("/success-submit");
           } else {
             const responseData = await response.text();
-            setErrorMessage({ ...errorMessage, desc: responseData });
+            setErrorMessage({...errorMessage, desc: responseData});
           }
         } catch (error) {
           setLoading(false);
@@ -201,14 +201,15 @@ export default function Auth({ signup = false }) {
 
   const btnText = () => {
     if (loading) {
-      return <ImSpinner8 className='mx-auto animate-spin' />;
+      return <ImSpinner8 className='mx-auto animate-spin'/>;
     }
 
     return variant === "Login" ? "Login" : "Register";
   };
 
   return (
-    <section className='container grid items-center justify-center h-full grid-cols-1 mx-auto md:grid-cols-2 lg:grid-cols-2 '>
+    <section
+      className='container grid items-center justify-center h-full grid-cols-1 mx-auto md:grid-cols-2 lg:grid-cols-2 '>
       {errorMessage.desc && (
         <Notification
           type={errorMessage.type}
@@ -245,7 +246,8 @@ export default function Auth({ signup = false }) {
               className='flex flex-col w-full gap-5'
               data-aos='fade-right'
               data-aos-duration='1200'>
-              <div className='flex flex-col gap-5 lg:gap-1 lg:flex-row items-center  md:gap-0 md:flex-row justify-between w-full'>
+              <div
+                className='flex flex-col gap-5 lg:gap-1 lg:flex-row items-center  md:gap-0 md:flex-row justify-between w-full'>
                 <div className='flex w-[100%] md:w-full lg:w-1/2'>
                   <Input
                     label='First name'
@@ -300,17 +302,26 @@ export default function Auth({ signup = false }) {
             />
           </div>
           <div
-            className='flex w-full'
+            className='flex w-full relative'
             data-aos='fade-right'
             data-aos-duration='1200'>
             <Input
               label='Password'
               onChange={(e) => setPassword(e.target.value)}
               id='password'
-              type='password'
+              type={showPassword ? 'text' : 'password'}
               required={true}
               value={password}
             />
+            {showPassword ? (
+              <FaEyeSlash
+                className="absolute top-0 right-0 my-6 mr-4 cursor-pointer"
+                onClick={toggleShowPassword}/>
+            ) : (
+              <FaEye
+                className="absolute top-0 right-0 my-6 mr-4 cursor-pointer"
+                onClick={toggleShowPassword}/>
+            )}
           </div>
           {variant === "Register" && (
             <>
@@ -324,7 +335,7 @@ export default function Auth({ signup = false }) {
                       type === true && "border border-black"
                     }`}
                     onClick={() => handleOptionChange(true)}>
-                    <UserIcon className='w-8 h-8 mb-4 text-black' />
+                    <UserIcon className='w-8 h-8 mb-4 text-black'/>
                     <p className='text-grey text-sm'>Individual</p>
                   </div>
                   <div
@@ -332,7 +343,7 @@ export default function Auth({ signup = false }) {
                       type === false && "border border-black"
                     }`}
                     onClick={() => handleOptionChange(false)}>
-                    <UserGroupIcon className='w-8 h-8 mb-4 text-black' />
+                    <UserGroupIcon className='w-8 h-8 mb-4 text-black'/>
                     <p className='text-grey text-sm'>Entity (2+) </p>
                   </div>
                 </div>
