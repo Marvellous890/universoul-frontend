@@ -12,4 +12,8 @@ const Button = ({ label, iconUrl }) => {
   );
 };
 
+/*export const LogoutButton() {
+  return
+}*/
+
 export default Button;

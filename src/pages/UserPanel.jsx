@@ -558,7 +558,7 @@ function _CommonSidebarNav({ extra }) {
       </div>
 
       <Link className="flex items-center flex-shrink-0 px-4 mb-4" to="/">
-        <img className="w-32 ml-4" src={textLogo} alt="UnivaBaber logo text" />
+        <img className="w-32 ml-4 logo" src={textLogo} alt="UnivaBaber logo text" />
       </Link>
 
       <nav
