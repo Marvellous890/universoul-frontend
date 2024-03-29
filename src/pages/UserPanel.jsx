@@ -35,7 +35,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { getCookie, isLoggedIn, deleteAllCookies, isOwner } from '../utils';
 
- const user = JSON.parse(getCookie('user'));
+const user = JSON.parse(getCookie('user'));
 
 
 
@@ -108,8 +108,8 @@ export default function UserPanel({ fragment, owner = false }) {
       icon: BuildingStorefrontIcon,
     },
     { name: "Crowd Funding", href: "/funding", icon: CurrencyDollarIcon },
-    { name: "Forum", href: "/forum", icon: ChatBubbleBottomCenterTextIcon }, 
-    { name: "Forum", href: "/forum", icon: ChatBubbleBottomCenterTextIcon }, 
+    { name: "Forum", href: "/forum", icon: ChatBubbleBottomCenterTextIcon },
+    { name: "Forum", href: "/forum", icon: ChatBubbleBottomCenterTextIcon },
     { name: "Messages", href: "/messages", icon: CiChat1 }
     // { name: 'Financial Management', href: '#', icon: BanknotesIcon },
     // { name: 'Reporting and Analytics', href: '#', icon: DocumentChartBarIcon },
@@ -122,6 +122,11 @@ export default function UserPanel({ fragment, owner = false }) {
     deleteAllCookies();
     localStorage.clear()
     navigate('/login');
+  }
+
+
+  if (!isLoggedIn()) return <Navigate to="/login" />;
+
   return (
     <ImageProvider>
       <UserContext.Provider value={user}>
@@ -390,15 +395,16 @@ export default function UserPanel({ fragment, owner = false }) {
                       )}
                       <Menu.Item>
                         {({ active }) => (
-                          <button
+                          <Link
+                            to="/login"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700 w-full text-left'
+                              'block px-4 py-2 text-sm text-gray-700'
                             )}
                             onClick={logout}
                           >
                             Logout
-                          </button>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -416,37 +422,38 @@ export default function UserPanel({ fragment, owner = false }) {
 }
 
 function _CommonSidebarNav({ extra }) {
-   const userm = JSON.parse(getCookie("user"));
-   //fixed
-   let navigation = [
-     {
-       name: "Dashboard",
-       href: userm.role === "superadmin" ? "/owner" : "/dashboard",
-       icon: HomeIcon,
-     },
-     {
-       name: userm.role === "SHOP_OWNER" ? "Appointments" : "My Bookings",
-       href: "/appointments",
-       icon: CalendarDaysIcon,
-     },
-     // { name: 'Services', href: '/services', icon: BriefcaseIcon },
-     // { name: 'Barbers', href: '/my-barbers', icon: HomeIcon },
-     { name: 'Customers', href: '/customers', icon: UserGroupIcon },
-     
-     {
-       name: "Build Your Business",
-       href: "/my-store",
-       icon: BuildingStorefrontIcon,
-      },
-      { name: "Crowd Funding", href: "/funding", icon: CurrencyDollarIcon },
-      { name: "Forum", href: "/forum", icon: ChatBubbleBottomCenterTextIcon },
-      { name: "Messages", href: userm.role === "Entity" ? "/entity" : "/messages", icon: CiChat1 },
-     // { name: 'Financial Management', href: '#', icon: BanknotesIcon },
-     // { name: 'Reporting and Analytics', href: '#', icon: DocumentChartBarIcon },
-   ];
-   if (userm.role === "superadmin") {
-     navigation = navigation.filter((nav) => nav.href !== "/appointments");
-   }
+  const user = useContext(UserContext);
+  const userm = JSON.parse(getCookie("user"));
+  //fixed
+  let navigation = [
+    {
+      name: "Dashboard",
+      href: userm.role === "superadmin" ? "/owner" : "/dashboard",
+      icon: HomeIcon,
+    },
+    {
+      name: userm.role === "SHOP_OWNER" ? "Appointments" : "My Bookings",
+      href: "/appointments",
+      icon: CalendarDaysIcon,
+    },
+    // { name: 'Services', href: '/services', icon: BriefcaseIcon },
+    // { name: 'Barbers', href: '/my-barbers', icon: HomeIcon },
+    { name: 'Customers', href: '/customers', icon: UserGroupIcon },
+
+    {
+      name: "Build Your Business",
+      href: "/my-store",
+      icon: BuildingStorefrontIcon,
+    },
+    { name: "Crowd Funding", href: "/funding", icon: CurrencyDollarIcon },
+    { name: "Forum", href: "/forum", icon: ChatBubbleBottomCenterTextIcon },
+    { name: "Messages", href: userm.role === "Entity" ? "/entity" : "/messages", icon: CiChat1 },
+    // { name: 'Financial Management', href: '#', icon: BanknotesIcon },
+    // { name: 'Reporting and Analytics', href: '#', icon: DocumentChartBarIcon },
+  ];
+  if (userm.role === "superadmin") {
+    navigation = navigation.filter((nav) => nav.href !== "/appointments");
+  }
 
   return (
     <>
@@ -560,49 +567,49 @@ function _CommonSidebarNav({ extra }) {
         aria-label="Sidebar"
       >
         <div className="px-2 space-y-1">
-          {userm?.role === 'USER' || 'SHOP_OWNER'
+          {user?.role === 'USER' || 'SHOP_OWNER'
             ? navigation.map((item) => (
-                // <div key={item.name} onClick={() => setSidebarOpen(false)}>
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={classNames(
-                    window.location.pathname === item.href
-                      ? 'bg-warm-gray-900 '
-                      : 'hover:bg-warm-gray-400 hover:bg-opacity-50',
-                    'text-white group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  <item.icon
-                    className="flex-shrink-0 w-6 h-6 mr-4"
-                    aria-hidden="true"
-                  />
-                  {item.name}
-                </Link>
-                // </div>
-              ))
+              // <div key={item.name} onClick={() => setSidebarOpen(false)}>
+              <Link
+                key={item.name}
+                to={item.href}
+                className={classNames(
+                  window.location.pathname === item.href
+                    ? 'bg-warm-gray-900 '
+                    : 'hover:bg-warm-gray-400 hover:bg-opacity-50',
+                  'text-white group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md'
+                )}
+                aria-current={item.current ? 'page' : undefined}
+              >
+                <item.icon
+                  className="flex-shrink-0 w-6 h-6 mr-4"
+                  aria-hidden="true"
+                />
+                {item.name}
+              </Link>
+              // </div>
+            ))
             : ownerNav.map((item) => (
-                // <div key={item.name} onClick={() => setSidebarOpen(false)}>
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={classNames(
-                    window.location.pathname === item.href
-                      ? 'bg-warm-gray-900 '
-                      : 'hover:bg-warm-gray-400 hover:bg-opacity-50',
-                    'text-white group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  <item.icon
-                    className="flex-shrink-0 w-6 h-6 mr-4"
-                    aria-hidden="true"
-                  />
-                  {item.name}
-                </Link>
-                // </div>
-              ))}
+              // <div key={item.name} onClick={() => setSidebarOpen(false)}>
+              <Link
+                key={item.name}
+                to={item.href}
+                className={classNames(
+                  window.location.pathname === item.href
+                    ? 'bg-warm-gray-900 '
+                    : 'hover:bg-warm-gray-400 hover:bg-opacity-50',
+                  'text-white group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md'
+                )}
+                aria-current={item.current ? 'page' : undefined}
+              >
+                <item.icon
+                  className="flex-shrink-0 w-6 h-6 mr-4"
+                  aria-hidden="true"
+                />
+                {item.name}
+              </Link>
+              // </div>
+            ))}
         </div>
         <div className="pt-6 mt-6">
           <div className="px-2 space-y-1">
@@ -628,4 +635,28 @@ function _CommonSidebarNav({ extra }) {
     </>
   );
 }
-}
+
+// import { Tab } from '@headlessui/react'
+
+// function MyTabs() {
+//   return (
+//     <Tab.Group vertical={true}>
+//       <Tab.List>
+//         <Tab>Tab 1</Tab>
+//         <Tab>Tab 2</Tab>
+//         <Tab>Tab 3</Tab>
+//       </Tab.List>
+//       <TabPanels />
+//     </Tab.Group>
+//   )
+// }
+
+// function TabPanels() {
+//   return (
+//     <Tab.Panels>
+//       <Tab.Panel>Content 1</Tab.Panel>
+//       <Tab.Panel>Content 2</Tab.Panel>
+//       <Tab.Panel>Content 3</Tab.Panel>
+//     </Tab.Panels>
+//   )
+// }
