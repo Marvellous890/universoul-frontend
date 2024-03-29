@@ -160,15 +160,14 @@ const Header = () => {
                             )}
                             <Menu.Item>
                               {({ active }) => (
-                                <Link
-                                  to='/login'
+                                <button
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
                                   )}
                                   onClick={logout}>
                                   Logout
-                                </Link>
+                                </button>
                               )}
                             </Menu.Item>
                           </Menu.Items>
@@ -279,15 +278,15 @@ const Header = () => {
                       )}
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            to='/login'
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                            onClick={logout}>
-                            Logout
-                          </Link>
+                          <button
+                          className={classNames(
+                          active ? 'bg-gray-100' : '',
+                          'block px-4 py-2 text-sm text-gray-700 w-full text-left'
+                          )}
+                          onClick={logout}
+                          >
+                          Logout
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -380,12 +379,11 @@ const Header = () => {
 
                       {/* conditionals for login and signup btns  */}
                       {isLoggedIn() ? (
-                        <Link
+                        <button
                           onClick={logout}
-                          to='/login'
                           className='block w-full rounded-md border border-transparent bg-warm-gray-100 hover:bg-warm-gray-200 py-2 px-4 text-center font-medium shadow text-black'>
                           Logout
-                        </Link>
+                        </button>
                       ) : (
                         <>
                           <Link
