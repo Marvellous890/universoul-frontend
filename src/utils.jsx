@@ -38,6 +38,7 @@ export function deleteCookie(name) {
 
 export function deleteAllCookies() {
     getAllCookieNames().forEach((name) => deleteCookie(name));
+    console.log('cookies deleted')
 }
 
 export function buildApiEndpoint(path, token = false) {
