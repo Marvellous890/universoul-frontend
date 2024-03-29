@@ -22,6 +22,7 @@ import ProfileImage from "./ProfileImage";
 import { CartContext } from "../context/CartContext";
 import { useContext, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import Button from "./Button.jsx";
 
 const token = getCookie('token');
 

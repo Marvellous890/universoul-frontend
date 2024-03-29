@@ -35,6 +35,9 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { getCookie, isLoggedIn, deleteAllCookies, isOwner } from '../utils';
 
+ const user = JSON.parse(getCookie('user'));
+
+
 
 const ownerNav = [
   { name: 'Dashboard', href: '/owner', icon: HomeIcon },
@@ -82,11 +85,9 @@ export default function UserPanel({ fragment, owner = false }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
+  //update
+
   const user = JSON.parse(getCookie('user'));
-
-  if (!user) window.location = "/login"
-  return
-
   let navigation = [
     {
       name: "Dashboard",
@@ -113,14 +114,9 @@ export default function UserPanel({ fragment, owner = false }) {
     // { name: 'Financial Management', href: '#', icon: BanknotesIcon },
     // { name: 'Reporting and Analytics', href: '#', icon: DocumentChartBarIcon },
   ];
-
   if (user.role === "superadmin") {
     navigation = navigation.filter((nav) => nav.href !== "/appointments");
   }
-
-  useEffect(() => {
-
-  }, []);
 
   function logout() {
     deleteAllCookies();
