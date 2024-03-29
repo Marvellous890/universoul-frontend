@@ -395,16 +395,15 @@ export default function UserPanel({ fragment, owner = false }) {
                       )}
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            to="/login"
+                          <button
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
+                              'block px-4 py-2 text-sm text-gray-700 w-full text-left'
                             )}
                             onClick={logout}
                           >
                             Logout
-                          </Link>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
