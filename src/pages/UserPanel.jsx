@@ -17,12 +17,15 @@ import {
   HomeIcon,
   DocumentTextIcon,
   BuildingStorefrontIcon,
-  ShieldCheckIcon,
   UserGroupIcon,
   XMarkIcon,
   UserIcon,
   CurrencyDollarIcon,
-  ChatBubbleBottomCenterTextIcon
+  ChatBubbleBottomCenterTextIcon,
+  ChartBarSquareIcon,
+  PowerIcon,
+  MoonIcon,
+  Cog8ToothIcon,
 } from '@heroicons/react/24/outline';
 import { CiChat1 } from "react-icons/ci";
 
@@ -126,6 +129,10 @@ export default function UserPanel({ fragment, owner = false }) {
 
 
   if (!isLoggedIn()) return <Navigate to="/login" />;
+
+  function switchTheme() {
+    document.getElementById('nightowl-switcher-default').click();
+  }
 
   return (
     <ImageProvider>
@@ -345,9 +352,10 @@ export default function UserPanel({ fragment, owner = false }) {
                                 to="/"
                                 className={classNames(
                                   active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
+                                  'px-4 py-2 text-sm text-gray-700 flex'
                                 )}
                               >
+                                <HomeIcon className='w-5 h-5 mr-2' />
                                 Home
                               </Link>
                             )}
@@ -358,9 +366,10 @@ export default function UserPanel({ fragment, owner = false }) {
                                 to="/dashboard"
                                 className={classNames(
                                   active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
+                                  'flex px-4 py-2 text-sm text-gray-700'
                                 )}
                               >
+                                <ChartBarSquareIcon className='w-5 h-5 mr-2' />
                                 Dashboard
                               </Link>
                             )}
@@ -371,9 +380,10 @@ export default function UserPanel({ fragment, owner = false }) {
                                 to="/profile"
                                 className={classNames(
                                   active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
+                                  'flex px-4 py-2 text-sm text-gray-700'
                                 )}
                               >
+                                <UserIcon className='w-5 h-5 mr-2' />
                                 Your Profile
                               </Link>
                             )}
@@ -384,9 +394,10 @@ export default function UserPanel({ fragment, owner = false }) {
                                 to="/settings"
                                 className={classNames(
                                   active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
+                                  'flex px-4 py-2 text-sm text-gray-700'
                                 )}
                               >
+                                <Cog8ToothIcon className='w-5 h-5 mr-2' />
                                 Settings
                               </Link>
                             )}
@@ -394,15 +405,27 @@ export default function UserPanel({ fragment, owner = false }) {
                         </>
                       )}
                       <Menu.Item>
+                        <button
+                          className={classNames(
+                            'flex px-4 py-2 text-sm text-gray-700'
+                          )}
+                          onClick={switchTheme}
+                        >
+                          <MoonIcon className='w-5 h-5 mr-2' />
+                          Switch Theme
+                        </button>
+                      </Menu.Item>
+                      <Menu.Item>
                         {({ active }) => (
                           <Link
                             to="/login"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
+                              'flex px-4 py-2 text-sm text-gray-700'
                             )}
                             onClick={logout}
                           >
+                            <PowerIcon className='w-5 h-5 mr-2' />
                             Logout
                           </Link>
                         )}
